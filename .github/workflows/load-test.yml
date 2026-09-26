@@ -11,9 +11,7 @@ permissions:
   issues: write
 
 env:
-  PROJECT_ID_STAGING: prometheus-staging
-  REGION: us-central1
-  STAGING_HOST: https://staging.prometheus.app
+  STAGING_HOST: ${{ vars.STAGING_HOST }}
 
 jobs:
   locust:
@@ -28,43 +26,60 @@ jobs:
 
       - run: pip install locust
 
+      - name: Verify staging host
+        run: |
+          set -euo pipefail
+          if [ -z "$STAGING_HOST" ]; then
+            echo "::error::Set the STAGING_HOST repository variable to the reachable staging API origin."
+            exit 1
+          fi
+          curl --fail --silent --show-error --max-time 15 "$STAGING_HOST/health" > /dev/null
+
       - name: Run Locust
         run: |
           locust -f scripts/locustfile.py \
             --host="${{ env.STAGING_HOST }}" \
             --users=200 --spawn-rate=20 --run-time=30m --headless \
+            --exit-code-on-error 1 \
             --csv=load --html=load-report.html
 
       - name: Upload reports
         uses: actions/upload-artifact@v7
         with: { name: load-test, path: 'load*', retention-days: 30 }
 
-      - name: Compare to baseline (PERF_BASELINES.md)
+      - name: Check health latency target
         id: compare
         run: |
           set -euo pipefail
-          # Parse load_stats.csv and compare with baselines
-          # Baseline values pulled from PERF_BASELINES.md (curated by hand)
-          P95_TARGET_GENERATE_MS=510
-          P95_TARGET_SESSION_MS=85
-          AVG_P95=$(awk -F',' 'NR>1 && $1 ~ /\/api\/generate/ {print $9}' load_stats.csv | head -1)
-          AVG_P95_SESSION=$(awk -F',' 'NR>1 && $1 ~ /\/api\/session/ {print $9}' load_stats.csv | head -1)
-          echo "Generate p95 (load): ${AVG_P95}ms; baseline: ${P95_TARGET_GENERATE_MS}ms"
-          echo "Session  p95 (load): ${AVG_P95_SESSION}ms; baseline: ${P95_TARGET_SESSION_MS}ms"
-          # Fail if 20% over baseline
-          THRESHOLD=$((P95_TARGET_GENERATE_MS * 120 / 100))
-          if [ "${AVG_P95%.*}" -gt "$THRESHOLD" ]; then
+          # The former generation/session rows did not exist: no Locust file
+          # was present. This is an explicit health SLA, not a measured baseline.
+          P95_HEALTH_SLA_MS=500
+          P95=$(python - <<'PY'
+          import csv
+          with open('load_stats.csv', newline='', encoding='utf-8') as report:
+              rows = csv.DictReader(report)
+              health = next((row for row in rows if row['Name'] == '/health'), None)
+          print(health['95%'] if health else '')
+          PY
+          )
+          if ! [[ "$P95" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+            echo "::error::No numeric /health p95 in Locust report"
+            exit 1
+          fi
+          echo "Health p95 (load): ${P95}ms; SLA: ${P95_HEALTH_SLA_MS}ms"
+          if awk -v p95="$P95" -v target="$P95_HEALTH_SLA_MS" 'BEGIN { exit !(p95 > target) }'; then
             echo "REGRESSION_DETECTED=true" >> $GITHUB_ENV
+            exit 1
           fi
 
       - name: Open issue on regression
-        if: env.REGRESSION_DETECTED == 'true'
+        if: always() && env.REGRESSION_DETECTED == 'true'
         uses: actions/github-script@v7
         with:
           script: |
             await github.rest.issues.create({
               owner: context.repo.owner, repo: context.repo.repo,
-              title: `[perf] weekly load test detected p95 regression on ${new Date().toISOString().slice(0,10)}`,
+              title: `[perf] weekly health load test exceeded its p95 SLA on ${new Date().toISOString().slice(0,10)}`,
               labels: ['perf', 'regression'],
-              body: `Weekly Locust against staging detected p95 regression > 20% on /api/generate. See workflow run: ${context.runId}`
+              body: `Weekly Locust against staging exceeded the 500ms p95 health target. See workflow run: ${context.runId}`
             });
