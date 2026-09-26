@@ -75,9 +75,7 @@ jobs:
       image: returntocorp/semgrep:latest
     steps:
       - uses: actions/checkout@v4
-      - run: semgrep ci --config=p/owasp-top-ten --config=p/python --config=p/typescript --error
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      - run: semgrep scan --config=p/owasp-top-ten --config=p/python --config=p/typescript --error
 
   trivy:
     runs-on: ubuntu-latest
