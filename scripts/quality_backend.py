@@ -7,6 +7,7 @@ installing backend requirements and the pinned Ruff/mypy versions in CI.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import os
 import re
@@ -22,14 +23,16 @@ BASELINE = ROOT / "scripts" / "backend-quality-baseline.json"
 TOOL_VERSIONS = {"ruff": "0.16.9", "mypy": "1.14.1"}
 MYPY_ERROR = re.compile(r"^(.+?\.py):(?:(\d+):(?:\d+:)?)? error: .*\[([\w-]+)\]$")
 HUNK = re.compile(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@")
-FORMAT_HUNK = re.compile(r"^@@ -(\d+)(?:,\d+)? \+\d+(?:,\d+)? @@")
 
 
-def run(command: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
+def run(
+    command: list[str], cwd: Path = ROOT, input_text: str | None = None
+) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         command,
         cwd=cwd,
         check=False,
+        input=input_text,
         capture_output=True,
         text=True,
         encoding="utf-8",
@@ -107,35 +110,6 @@ def collect() -> dict[str, list[dict[str, object]]]:
             }
             for item in raw
         ]
-
-    # Ruff's JSON fix range can span hundreds of lines for one formatting
-    # change. The unified diff identifies the actual original lines changed.
-    formatter = run([sys.executable, "-m", "ruff", "format", "--diff", "backend"])
-    if formatter.returncode not in (0, 1):
-        raise RuntimeError(f"Ruff format diff crashed: {formatter.stderr}")
-    format_rows: dict[str, set[int]] = defaultdict(set)
-    filename: str | None = None
-    old_row: int | None = None
-    for line in formatter.stdout.splitlines():
-        if line.startswith(("--- backend/", "--- backend\\")):
-            filename = repo_path(line[4:])
-            old_row = None
-        elif line.startswith("@@ "):
-            match = FORMAT_HUNK.match(line)
-            if match is None:
-                raise RuntimeError(f"Unrecognized Ruff format diff hunk: {line}")
-            old_row = int(match.group(1))
-        elif old_row is not None and filename is not None:
-            if line.startswith("-"):
-                format_rows[filename].add(old_row)
-                old_row += 1
-            elif line.startswith("+"):
-                format_rows[filename].add(old_row)
-            elif line.startswith(" "):
-                old_row += 1
-    for diagnostic in results["format"]:
-        row_set = format_rows.get(str(diagnostic["file"]), set())
-        diagnostic["edits"] = [(row, row) for row in sorted(row_set)]
 
     process = run(
         [
@@ -247,8 +221,34 @@ def changed_lines(base: str) -> tuple[dict[str, set[int]], set[str]]:
     return additions, changed
 
 
+def formatting_rows(path: str) -> list[tuple[int, int]]:
+    # Git can check out CRLF on Windows while CI sees LF. Normalize before
+    # comparing Ruff's output so unrelated line endings do not look changed.
+    source = (ROOT / path).read_text(encoding="utf-8")
+    process = run(
+        [sys.executable, "-m", "ruff", "format", "--stdin-filename", path, "-"],
+        input_text=source,
+    )
+    if process.returncode:
+        raise RuntimeError(f"Cannot format {path}: {process.stderr}")
+    rows: set[int] = set()
+    for operation, first, last, _, _ in difflib.SequenceMatcher(
+        None, source.splitlines(), process.stdout.splitlines(), autojunk=False
+    ).get_opcodes():
+        if operation == "equal":
+            continue
+        if first == last:
+            rows.add(first + 1)
+        else:
+            rows.update(range(first + 1, last + 1))
+    return [(row, row) for row in sorted(rows)]
+
+
 def on_added_line(
-    diagnostic: dict[str, object], additions: dict[str, set[int]], changed: set[str]
+    diagnostic: dict[str, object],
+    additions: dict[str, set[int]],
+    changed: set[str],
+    tool: str,
 ) -> bool:
     path = str(diagnostic["file"])
     if path not in changed:
@@ -262,6 +262,8 @@ def on_added_line(
                 row in rows for row in range(int(start), max(int(start), int(end)) + 1)
             ):
                 return True
+    if tool == "format":
+        return False
     return diagnostic["line"] in rows
 
 
@@ -321,6 +323,9 @@ def main() -> int:
                         )
 
     additions, changed = changed_lines(args.base)
+    for diagnostic in results["format"]:
+        if diagnostic["file"] in changed:
+            diagnostic["edits"] = formatting_rows(str(diagnostic["file"]))
     failures = []
     for tool, diagnostics in results.items():
         old = baseline["diagnostics"].get(tool, {})
@@ -332,15 +337,7 @@ def main() -> int:
                         f"{tool}: {path} {code}: {amount} > baseline {allowed}"
                     )
         for diagnostic in diagnostics:
-            if (
-                tool == "format"
-                and diagnostic["file"] in changed
-                and not diagnostic["edits"]
-            ):
-                failures.append(
-                    f"format: cannot map formatting edits in changed file {diagnostic['file']}"
-                )
-            if on_added_line(diagnostic, additions, changed):
+            if on_added_line(diagnostic, additions, changed, tool):
                 failures.append(
                     f"{tool}: changed line {diagnostic['file']}:{diagnostic['line']} {diagnostic['code']}"
                 )
