@@ -45,7 +45,7 @@ jobs:
       - name: mypy --strict
         run: |
           cd backend
-          mypy --strict agents services models
+          mypy --strict --explicit-package-bases agents services models
 
   test-backend:
     name: Test backend (pytest, coverage gate 70%)
