@@ -11,3 +11,11 @@
 4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:99
 4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:108
 4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:109
+
+# Squash-merging #566 introduced the same reviewed SHA-256 digest entries at a
+# new commit ID. Match only the five fingerprints reported by main CI.
+1e834522793f667a4ed4caf099c6acc2d3652d9f:frontend/scripts/format-baseline.json:generic-api-key:43
+1e834522793f667a4ed4caf099c6acc2d3652d9f:frontend/scripts/format-baseline.json:generic-api-key:87
+1e834522793f667a4ed4caf099c6acc2d3652d9f:frontend/scripts/format-baseline.json:generic-api-key:99
+1e834522793f667a4ed4caf099c6acc2d3652d9f:frontend/scripts/format-baseline.json:generic-api-key:108
+1e834522793f667a4ed4caf099c6acc2d3652d9f:frontend/scripts/format-baseline.json:generic-api-key:109
