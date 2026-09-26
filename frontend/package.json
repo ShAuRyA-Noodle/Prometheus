@@ -13,8 +13,10 @@
     "cap:android": "npx cap open android",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier -w src",
+    "format:check": "node scripts/check-format.mjs",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ci": "vitest run",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit"
   },
