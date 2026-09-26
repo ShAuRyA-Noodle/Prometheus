@@ -1,9 +1,11 @@
 """Share-token mint/verify/revoke tests."""
+
 from __future__ import annotations
 
 import time
 
 import pytest
+
 from services import share_token_service as sts
 
 pytestmark = pytest.mark.asyncio
