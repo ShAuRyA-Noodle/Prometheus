@@ -30,11 +30,12 @@
     "@radix-ui/react-tabs": "^1.1.15",
     "@radix-ui/react-toast": "^1.2.17",
     "@radix-ui/react-tooltip": "^1.2.10",
-    "@tiptap/extension-image": "^2.10.3",
-    "@tiptap/extension-link": "^2.10.3",
-    "@tiptap/extension-placeholder": "^2.10.3",
-    "@tiptap/react": "^2.10.3",
-    "@tiptap/starter-kit": "^2.10.3",
+    "@tiptap/core": "^3.31.3",
+    "@tiptap/extension-image": "^3.31.3",
+    "@tiptap/extension-placeholder": "^3.31.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
@@ -77,7 +78,7 @@
     "tailwindcss": "^4.0.0-beta.8",
     "typescript": "^5.7.2",
     "vite": "^6.4.2",
-    "vitest": "^3.2.6"
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": ">=20"

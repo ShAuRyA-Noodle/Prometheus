@@ -17,7 +17,6 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
 import { ChevronUp, ImagePlus, Mic2, RotateCw } from "lucide-react";
 import type { BrandIdentityResult, PitchSlide } from "../../types/agents";
 import { LAYOUT_REGISTRY } from "./SlideLayouts";
@@ -37,7 +36,15 @@ export interface SlideCanvasProps {
 
 export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
   function SlideCanvas(
-    { slide, brand, onChangeBody, onChangeNotes, onChangeImage, onRegenerateImage, imageBusy },
+    {
+      slide,
+      brand,
+      onChangeBody,
+      onChangeNotes,
+      onChangeImage,
+      onRegenerateImage,
+      imageBusy,
+    },
     ref,
   ) {
     const Layout = LAYOUT_REGISTRY[slide.layout];
@@ -49,10 +56,10 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
           StarterKit.configure({
             heading: { levels: [2, 3] },
             codeBlock: false,
+            link: { openOnClick: false, autolink: true },
           }),
           Placeholder.configure({ placeholder: "Body copy…" }),
           Image,
-          Link.configure({ openOnClick: false, autolink: true }),
         ],
         content: slide.body,
         onUpdate: ({ editor }) => onChangeBody(editor.getText()),
@@ -63,7 +70,10 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
     // Tiptap editor for speaker notes
     const notesEditor = useEditor(
       {
-        extensions: [StarterKit, Placeholder.configure({ placeholder: "Speaker notes…" })],
+        extensions: [
+          StarterKit,
+          Placeholder.configure({ placeholder: "Speaker notes…" }),
+        ],
         content: slide.speaker_notes,
         onUpdate: ({ editor }) => onChangeNotes(editor.getText()),
       },
@@ -102,7 +112,10 @@ export const SlideCanvas = forwardRef<HTMLDivElement, SlideCanvasProps>(
           onRegenerateImage={onRegenerateImage}
           onUploadImage={(url) => onChangeImage(url)}
         />
-        <div ref={viewportRef} className="relative grid place-items-center overflow-hidden p-6">
+        <div
+          ref={viewportRef}
+          className="relative grid place-items-center overflow-hidden p-6"
+        >
           <div
             className="origin-center bg-ink-900 shadow-bento"
             style={{
@@ -218,7 +231,11 @@ interface SpeakerNotesDrawerProps {
   editor: ReturnType<typeof useEditor>;
 }
 
-function SpeakerNotesDrawer({ open, onToggle, editor }: SpeakerNotesDrawerProps): JSX.Element {
+function SpeakerNotesDrawer({
+  open,
+  onToggle,
+  editor,
+}: SpeakerNotesDrawerProps): JSX.Element {
   return (
     <div
       className={cn(

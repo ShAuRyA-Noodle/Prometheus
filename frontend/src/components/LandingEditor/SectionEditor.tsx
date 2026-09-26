@@ -70,15 +70,23 @@ export function SectionEditor({
     >
       <header className="grid grid-cols-[1fr_auto] items-baseline gap-2">
         <div>
-          <p className="text-[10px] uppercase tracking-widest text-ink-500">Section</p>
-          <h3 className="font-display text-base text-ink-50 capitalize">{section.type}</h3>
+          <p className="text-[10px] uppercase tracking-widest text-ink-500">
+            Section
+          </p>
+          <h3 className="font-display text-base text-ink-50 capitalize">
+            {section.type}
+          </h3>
         </div>
         <span className="font-mono text-[10px] text-ink-500">
           id: {section.id}
         </span>
       </header>
       {section.type === "hero" && (
-        <HeroEditor sessionId={sessionId} value={section.data} onChange={(d) => stamp({ ...section, data: d })} />
+        <HeroEditor
+          sessionId={sessionId}
+          value={section.data}
+          onChange={(d) => stamp({ ...section, data: d })}
+        />
       )}
       {section.type === "features" && (
         <FeaturesEditor
@@ -88,19 +96,34 @@ export function SectionEditor({
         />
       )}
       {section.type === "pricing" && (
-        <PricingEditor value={section.data} onChange={(d) => stamp({ ...section, data: d })} />
+        <PricingEditor
+          value={section.data}
+          onChange={(d) => stamp({ ...section, data: d })}
+        />
       )}
       {section.type === "testimonials" && (
-        <TestimonialsEditor value={section.data} onChange={(d) => stamp({ ...section, data: d })} />
+        <TestimonialsEditor
+          value={section.data}
+          onChange={(d) => stamp({ ...section, data: d })}
+        />
       )}
       {section.type === "faq" && (
-        <FAQEditor value={section.data} onChange={(d) => stamp({ ...section, data: d })} />
+        <FAQEditor
+          value={section.data}
+          onChange={(d) => stamp({ ...section, data: d })}
+        />
       )}
       {section.type === "cta" && (
-        <CTAEditor value={section.data} onChange={(d) => stamp({ ...section, data: d })} />
+        <CTAEditor
+          value={section.data}
+          onChange={(d) => stamp({ ...section, data: d })}
+        />
       )}
       {section.type === "footer" && (
-        <FooterEditor value={section.data} onChange={(d) => stamp({ ...section, data: d })} />
+        <FooterEditor
+          value={section.data}
+          onChange={(d) => stamp({ ...section, data: d })}
+        />
       )}
     </motion.section>
   );
@@ -201,7 +224,11 @@ function VariantPicker({
     { id: "split", label: "Split" },
   ];
   return (
-    <div role="radiogroup" aria-label="Hero variant" className="inline-grid grid-cols-3 gap-1 rounded-full border border-ink-800 bg-ink-950 p-1">
+    <div
+      role="radiogroup"
+      aria-label="Hero variant"
+      className="inline-grid grid-cols-3 gap-1 rounded-full border border-ink-800 bg-ink-950 p-1"
+    >
       {variants.map((v) => (
         <button
           key={v.id}
@@ -230,7 +257,11 @@ function PatternPicker({
   value: NonNullable<LandingHero["background_pattern"]>;
   onChange: (v: NonNullable<LandingHero["background_pattern"]>) => void;
 }): JSX.Element {
-  const patterns: NonNullable<LandingHero["background_pattern"]>[] = ["none", "noise", "grid"];
+  const patterns: NonNullable<LandingHero["background_pattern"]>[] = [
+    "none",
+    "noise",
+    "grid",
+  ];
   return (
     <Field label="Background pattern">
       <div className="inline-grid grid-cols-3 gap-1 rounded-md border border-ink-800 bg-ink-950 p-1">
@@ -241,7 +272,9 @@ function PatternPicker({
             onClick={() => onChange(p)}
             className={cn(
               "rounded px-3 py-1 text-[11px] font-medium capitalize transition focus-ring",
-              value === p ? "bg-accent-500 text-ink-950" : "text-ink-300 hover:bg-ink-800",
+              value === p
+                ? "bg-accent-500 text-ink-950"
+                : "text-ink-300 hover:bg-ink-800",
             )}
           >
             {p}
@@ -261,7 +294,11 @@ function FeaturesEditor({
 }: {
   sessionId: string;
   value: { headline: string; subheadline?: string; features: LandingFeature[] };
-  onChange: (next: { headline: string; subheadline?: string; features: LandingFeature[] }) => void;
+  onChange: (next: {
+    headline: string;
+    subheadline?: string;
+    features: LandingFeature[];
+  }) => void;
 }): JSX.Element {
   const setFeature = (idx: number, next: LandingFeature) => {
     const features = value.features.map((f, i) => (i === idx ? next : f));
@@ -273,12 +310,18 @@ function FeaturesEditor({
       ...value,
       features: [
         ...value.features,
-        { title: "New feature", description: "Why it matters in one sentence." },
+        {
+          title: "New feature",
+          description: "Why it matters in one sentence.",
+        },
       ],
     });
   };
   const removeFeature = (idx: number) => {
-    onChange({ ...value, features: value.features.filter((_, i) => i !== idx) });
+    onChange({
+      ...value,
+      features: value.features.filter((_, i) => i !== idx),
+    });
   };
 
   return (
@@ -320,7 +363,9 @@ function FeaturesEditor({
               />
               <textarea
                 value={f.description}
-                onChange={(e) => setFeature(i, { ...f, description: e.target.value })}
+                onChange={(e) =>
+                  setFeature(i, { ...f, description: e.target.value })
+                }
                 maxLength={240}
                 rows={2}
                 className="w-full resize-none rounded-md border border-ink-800 bg-ink-950 px-3 py-1.5 text-sm text-ink-200 focus-ring"
@@ -369,7 +414,10 @@ function PricingEditor({
   onChange: (next: { headline: string; tiers: LandingPricingTier[] }) => void;
 }): JSX.Element {
   const setTier = (idx: number, next: LandingPricingTier) => {
-    onChange({ ...value, tiers: value.tiers.map((t, i) => (i === idx ? next : t)) });
+    onChange({
+      ...value,
+      tiers: value.tiers.map((t, i) => (i === idx ? next : t)),
+    });
   };
   return (
     <div className="grid gap-4">
@@ -401,7 +449,10 @@ function PricingEditor({
                 type="number"
                 value={t.price_usd_monthly}
                 onChange={(e) =>
-                  setTier(i, { ...t, price_usd_monthly: Number(e.target.value) })
+                  setTier(i, {
+                    ...t,
+                    price_usd_monthly: Number(e.target.value),
+                  })
                 }
                 min={0}
                 className="w-24 rounded-md border border-ink-800 bg-ink-950 px-3 py-1.5 text-sm tabular-nums text-ink-100 focus-ring"
@@ -410,7 +461,9 @@ function PricingEditor({
             <input
               type="text"
               value={t.target_segment}
-              onChange={(e) => setTier(i, { ...t, target_segment: e.target.value })}
+              onChange={(e) =>
+                setTier(i, { ...t, target_segment: e.target.value })
+              }
               maxLength={120}
               placeholder="Target segment"
               className="rounded-md border border-ink-800 bg-ink-950 px-3 py-1.5 text-xs text-ink-200 focus-ring"
@@ -431,7 +484,9 @@ function PricingEditor({
               <input
                 type="text"
                 value={t.cta_label ?? ""}
-                onChange={(e) => setTier(i, { ...t, cta_label: e.target.value })}
+                onChange={(e) =>
+                  setTier(i, { ...t, cta_label: e.target.value })
+                }
                 placeholder="CTA label"
                 maxLength={40}
                 className="rounded-md border border-ink-800 bg-ink-950 px-3 py-1.5 text-xs text-ink-100 focus-ring"
@@ -449,7 +504,9 @@ function PricingEditor({
               <input
                 type="checkbox"
                 checked={Boolean(t.highlighted)}
-                onChange={(e) => setTier(i, { ...t, highlighted: e.target.checked })}
+                onChange={(e) =>
+                  setTier(i, { ...t, highlighted: e.target.checked })
+                }
                 className="h-3.5 w-3.5 accent-accent-500"
               />
               Highlight this tier
@@ -468,7 +525,10 @@ function TestimonialsEditor({
   onChange,
 }: {
   value: { headline: string; testimonials: LandingTestimonial[] };
-  onChange: (next: { headline: string; testimonials: LandingTestimonial[] }) => void;
+  onChange: (next: {
+    headline: string;
+    testimonials: LandingTestimonial[];
+  }) => void;
 }): JSX.Element {
   const addOne = () => {
     onChange({
@@ -576,7 +636,10 @@ function FAQEditor({
   onChange: (next: { headline: string; entries: LandingFAQEntry[] }) => void;
 }): JSX.Element {
   const setOne = (idx: number, next: LandingFAQEntry) => {
-    onChange({ ...value, entries: value.entries.map((e, i) => (i === idx ? next : e)) });
+    onChange({
+      ...value,
+      entries: value.entries.map((e, i) => (i === idx ? next : e)),
+    });
   };
   return (
     <div className="grid gap-4">
@@ -591,11 +654,16 @@ function FAQEditor({
       </Field>
       <ul className="grid gap-3">
         {value.entries.map((entry, i) => (
-          <li key={i} className="grid gap-2 rounded-2xl border border-ink-800 bg-ink-950/40 p-3">
+          <li
+            key={i}
+            className="grid gap-2 rounded-2xl border border-ink-800 bg-ink-950/40 p-3"
+          >
             <input
               type="text"
               value={entry.question}
-              onChange={(e) => setOne(i, { ...entry, question: e.target.value })}
+              onChange={(e) =>
+                setOne(i, { ...entry, question: e.target.value })
+              }
               maxLength={160}
               placeholder="Question"
               className="rounded-md border border-ink-800 bg-ink-950 px-3 py-1.5 text-sm font-semibold text-ink-100 focus-ring"
@@ -611,7 +679,10 @@ function FAQEditor({
             <button
               type="button"
               onClick={() =>
-                onChange({ ...value, entries: value.entries.filter((_, j) => j !== i) })
+                onChange({
+                  ...value,
+                  entries: value.entries.filter((_, j) => j !== i),
+                })
               }
               className="justify-self-end text-[11px] text-ink-500 hover:text-rose-300 focus-ring"
             >
@@ -643,8 +714,18 @@ function CTAEditor({
   value,
   onChange,
 }: {
-  value: { headline: string; body: string; cta_label: string; cta_href: string };
-  onChange: (next: { headline: string; body: string; cta_label: string; cta_href: string }) => void;
+  value: {
+    headline: string;
+    body: string;
+    cta_label: string;
+    cta_href: string;
+  };
+  onChange: (next: {
+    headline: string;
+    body: string;
+    cta_label: string;
+    cta_href: string;
+  }) => void;
 }): JSX.Element {
   return (
     <div className="grid gap-3">
@@ -695,7 +776,9 @@ function FooterEditor({
   onChange,
 }: {
   value: import("../../lib/composeLandingHtml").LandingFooter;
-  onChange: (next: import("../../lib/composeLandingHtml").LandingFooter) => void;
+  onChange: (
+    next: import("../../lib/composeLandingHtml").LandingFooter,
+  ) => void;
 }): JSX.Element {
   return (
     <div className="grid gap-3">
@@ -732,10 +815,18 @@ function FooterEditor({
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
-function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}): JSX.Element {
   return (
     <label className="grid gap-1.5">
-      <span className="text-[10px] uppercase tracking-widest text-ink-500">{label}</span>
+      <span className="text-[10px] uppercase tracking-widest text-ink-500">
+        {label}
+      </span>
       {children}
     </label>
   );
@@ -760,6 +851,8 @@ function RichTextarea({
   // avoid leaking arbitrary HTML to composeLandingHtml. The editor produces
   // HTML; we strip tags before persisting.
   const editor = useEditor({
+    // The toolbar reads selection state directly from the editor.
+    shouldRerenderOnTransaction: true,
     extensions: [
       StarterKit.configure({ heading: false, codeBlock: false }),
       Placeholder.configure({ placeholder: placeholder ?? "" }),
@@ -783,7 +876,7 @@ function RichTextarea({
   useEffect(() => {
     if (!editor) return;
     if (editor.getText() === value) return;
-    editor.commands.setContent(value || "", false);
+    editor.commands.setContent(value || "", { emitUpdate: false });
   }, [editor, value]);
 
   if (!editor) {
@@ -839,7 +932,11 @@ function Toolbar({ editor }: { editor: Editor }): JSX.Element {
       onClick: () => {
         const url = window.prompt("URL");
         if (!url) return;
-        editor.chain().focus().setMark("link" as never, { href: url } as never).run();
+        editor
+          .chain()
+          .focus()
+          .setMark("link" as never, { href: url } as never)
+          .run();
       },
     },
   ];
@@ -899,7 +996,11 @@ function ImageSlot({
       onChange(res.image_url);
     } catch (e) {
       const msg =
-        e instanceof APIError ? e.message : e instanceof Error ? e.message : "Image regen failed";
+        e instanceof APIError
+          ? e.message
+          : e instanceof Error
+            ? e.message
+            : "Image regen failed";
       setError(msg);
     } finally {
       setBusy(false);
@@ -907,16 +1008,27 @@ function ImageSlot({
   }, [onChange, sessionId, target, targetId]);
 
   return (
-    <div className={cn("grid gap-2", compact ? "" : "rounded-2xl border border-ink-800 bg-ink-950/40 p-3")}>
+    <div
+      className={cn(
+        "grid gap-2",
+        compact ? "" : "rounded-2xl border border-ink-800 bg-ink-950/40 p-3",
+      )}
+    >
       <div className="grid grid-cols-[1fr_auto] items-center gap-2">
-        <span className="text-[10px] uppercase tracking-widest text-ink-500">{label}</span>
+        <span className="text-[10px] uppercase tracking-widest text-ink-500">
+          {label}
+        </span>
         <button
           type="button"
           onClick={() => void regen()}
           disabled={busy}
           className="grid grid-cols-[auto_1fr] items-center gap-1.5 rounded-full border border-ink-800 bg-ink-900/60 px-3 py-1 text-[11px] text-ink-200 hover:bg-ink-900 focus-ring disabled:opacity-50"
         >
-          {busy ? <RefreshCw className="h-3 w-3 animate-spin" /> : <Wand2 className="h-3 w-3" />}
+          {busy ? (
+            <RefreshCw className="h-3 w-3 animate-spin" />
+          ) : (
+            <Wand2 className="h-3 w-3" />
+          )}
           {busy ? "Generating…" : "Regenerate"}
         </button>
       </div>
@@ -927,7 +1039,12 @@ function ImageSlot({
         )}
       >
         {url ? (
-          <img src={url} alt="" loading="lazy" className="h-full w-full object-cover" />
+          <img
+            src={url}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         ) : (
           <div className="grid h-full w-full place-items-center text-ink-600">
             <ImageIcon className="h-6 w-6" aria-hidden />
