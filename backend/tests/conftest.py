@@ -31,6 +31,7 @@ os.environ.setdefault("ENV", "dev")
 os.environ.setdefault("LOG_LEVEL", "WARNING")
 os.environ.setdefault("CORS_ORIGINS", "http://localhost:5173")
 os.environ.setdefault("CLOUD_TASKS_WORKER_URL", "")  # forces dev inline dispatch
+os.environ.setdefault("VERTEX_SAFETY_ENABLED", "false")  # tests must not call live Vertex
 os.environ.setdefault("STRIPE_WEBHOOK_SECRET", "whsec_test")
 
 
