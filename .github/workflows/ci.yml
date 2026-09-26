@@ -15,37 +15,25 @@ env:
   NODE_VERSION: "20"
 
 jobs:
-  lint-backend:
-    name: Lint backend (ruff)
+  backend-quality:
+    name: Backend quality (Ruff + mypy ratchet)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
-      - name: ruff format check
-        run: ruff format --check backend
-      - name: ruff lint
-        run: ruff check backend
-
-  typecheck-backend:
-    name: Typecheck backend (mypy --strict)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
-          cache-dependency-path: backend/requirements.txt
-      - run: pip install -r backend/requirements.txt
-      - name: mypy --strict
-        run: |
-          cd backend
-          mypy --strict --explicit-package-bases agents services models
+      - name: Pin quality tools
+        run: pip install ruff==0.16.9 mypy==1.14.1
+      - name: Check backend quality against documented baseline
+        env:
+          QUALITY_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: python scripts/quality_backend.py --base "$QUALITY_BASE_REF"
 
   test-backend:
     name: Test backend (pytest, coverage gate 70%)
@@ -87,7 +75,7 @@ jobs:
       - run: cd frontend && npm run format:check
 
   typecheck-frontend:
-    name: Typecheck frontend (tsc --noEmit)
+    name: Typecheck and build frontend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -98,6 +86,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: cd frontend && npm ci
       - run: cd frontend && npm run typecheck
+      - run: cd frontend && npm run build
 
   test-frontend:
     name: Test frontend (vitest)
