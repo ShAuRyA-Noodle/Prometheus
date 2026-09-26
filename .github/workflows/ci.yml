@@ -43,7 +43,9 @@ jobs:
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
       - name: mypy --strict
-        run: mypy --strict backend/agents backend/services backend/models
+        run: |
+          cd backend
+          mypy --strict agents services models
 
   test-backend:
     name: Test backend (pytest, coverage gate 70%)
