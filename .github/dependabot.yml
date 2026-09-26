@@ -9,9 +9,12 @@ updates:
       default-days: 7
     groups:
       minor-patch:
+        patterns: ["*"]
         update-types: [minor, patch]
     open-pull-requests-limit: 5
     ignore:
+      # Framework/toolchain major upgrades need migration and CI review.
+      # This only filters version PRs; Dependabot security updates stay enabled.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
   - package-ecosystem: pip
@@ -23,9 +26,12 @@ updates:
       default-days: 7
     groups:
       minor-patch:
+        patterns: ["*"]
         update-types: [minor, patch]
     open-pull-requests-limit: 5
     ignore:
+      # Major Python SDK changes need compatibility testing. Security updates
+      # still run because SemVer update-type filters apply to version PRs only.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
@@ -35,3 +41,7 @@ updates:
       day: monday
     cooldown:
       default-days: 7
+    groups:
+      workflow-actions:
+        patterns: ["*"]
+    open-pull-requests-limit: 5
