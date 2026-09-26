@@ -18,7 +18,7 @@ google-cloud-firestore>=2.20.0
 google-cloud-tasks>=2.18.0
 google-cloud-secret-manager>=2.22.0
 google-cloud-storage>=2.19.0
-google-cloud-logging>=3.16.0
+google-cloud-logging>=3.16.3
 google-cloud-trace>=1.16.0
 google-cloud-monitoring>=2.27.1
 
