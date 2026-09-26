@@ -3,14 +3,11 @@
  */
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act, waitFor } from "@testing-library/react";
+import { api } from "@/lib/api";
 
 vi.mock("@/lib/api", () => ({
   api: {
-    transcribeAudio: vi.fn().mockResolvedValue({
-      transcript: "hello world",
-      duration_s: 1.2,
-      provider: "deepgram",
-    }),
+    transcribeAudio: vi.fn(),
   },
   APIError: class APIError extends Error {},
 }));
@@ -77,6 +74,11 @@ class MockAudioContext {
 }
 
 beforeEach(() => {
+  vi.mocked(api.transcribeAudio).mockResolvedValue({
+    transcript: "hello world",
+    duration_s: 1.2,
+    provider: "deepgram",
+  });
   (globalThis as unknown as { MediaRecorder: typeof MockMediaRecorder }).MediaRecorder =
     MockMediaRecorder;
   (window as unknown as { AudioContext: typeof MockAudioContext }).AudioContext =
@@ -128,7 +130,7 @@ describe("useVoiceInput", () => {
     await act(async () => {
       await result.current.stop();
     });
-    await waitFor(() => expect(result.current.state).toBe("idle"));
+    await waitFor(() => expect(result.current.state, result.current.error ?? "").toBe("idle"));
     expect(result.current.result?.transcript).toBe("hello world");
   });
 

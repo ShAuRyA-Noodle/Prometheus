@@ -47,7 +47,7 @@ const InvoiceListSchema = z.object({ invoices: z.array(z.object({
 
 export function BillingPage(): JSX.Element {
   const { tier, uid, loading: authLoading } = useAuth();
-  const { error: errorToast, success } = useToast();
+  const { error: errorToast } = useToast();
 
   const [usage, setUsage] = useState<UsageSnapshot | null>(null);
   const [invoices, setInvoices] = useState<Invoice[]>([]);

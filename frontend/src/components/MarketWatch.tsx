@@ -107,7 +107,7 @@ export function MarketWatch({ companyId, className, onEntryClick }: MarketWatchP
         setError(null);
       },
       (err) => {
-        // eslint-disable-next-line no-console
+         
         console.warn("[market-watch] listener error", err);
         setError(err.message);
         setLoading(false);

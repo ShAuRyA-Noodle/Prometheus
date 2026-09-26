@@ -10,7 +10,7 @@
  *   Cmd/Ctrl-Up  — bump candidate up the list
  *   Cmd/Ctrl-Down — bump down
  */
-import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
+import { forwardRef, useCallback, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Crown, MoreHorizontal, Star, Trash2 } from "lucide-react";
 import * as Popover from "@radix-ui/react-popover";

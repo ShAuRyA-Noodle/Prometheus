@@ -23,7 +23,6 @@ import {
   ClipboardCheck,
   Code2,
   Globe,
-  Megaphone,
   Palette,
   Presentation,
   Rocket,
@@ -112,7 +111,6 @@ interface TabDef {
 export function ResultsView({
   sessionId,
   results,
-  onRegenAgent,
   className,
 }: ResultsViewProps): JSX.Element {
   const tabs: TabDef[] = useMemo(

@@ -4,7 +4,7 @@
 # === API server ===
 fastapi>=0.138.0
 uvicorn[standard]>=0.32.1
-pydantic>=2.10.3
+pydantic[email]>=2.10.3
 pydantic-settings>=2.6.1
 python-multipart>=0.0.27
 
@@ -37,7 +37,6 @@ aiohttp>=3.13.4
 tenacity>=9.0.0
 
 # === Auth ===
-python-jose[cryptography]>=3.4.0
 passlib[bcrypt]>=1.7.4
 PyJWT>=2.12.0
 

@@ -192,7 +192,6 @@ function MermaidDiagram({ source }: { source: string }): JSX.Element {
         <div
           ref={ref}
           className="grid place-items-center overflow-x-auto rounded-lg bg-ink-950/60 p-3 [&_svg]:max-w-full"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: svg }}
         />
       ) : errored ? (

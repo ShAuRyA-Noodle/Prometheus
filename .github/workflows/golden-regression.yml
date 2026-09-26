@@ -36,7 +36,7 @@ jobs:
 
       - name: Run golden suite (mocked Gemini)
         env:
-          ENV: test
+          ENV: dev
           GOLDEN_MAX_BUDGET_USD: "1.00"   # per-run cap; PR fails if avg > $0.85
           GOLDEN_MIN_COHERENCE: "0.60"    # avg coherence floor
         run: |

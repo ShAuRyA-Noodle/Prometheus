@@ -13,8 +13,8 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+import jwt
 import structlog
-from jose import JWTError, jwt  # type: ignore[import-not-found]
 
 from config import settings
 from models.user_models import User, UserRole
@@ -119,7 +119,7 @@ def verify_session_jwt(token: str) -> dict[str, Any]:
             issuer=_JWT_ISS,
             options={"require": ["exp", "iat", "sub", "session_id"]},
         )
-    except JWTError as e:
+    except jwt.PyJWTError as e:
         log.warning("auth.session_jwt_invalid", err=str(e))
         raise ValueError("invalid session jwt") from e
 

@@ -58,7 +58,7 @@ export function useSessionListener(
         if (parsed.success) {
           setSession(parsed.data);
         } else {
-          // eslint-disable-next-line no-console
+           
           console.warn("[session] schema mismatch", parsed.error.issues);
         }
         setLoading(false);

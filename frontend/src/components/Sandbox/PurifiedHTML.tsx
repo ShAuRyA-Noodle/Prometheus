@@ -38,7 +38,6 @@ export function PurifiedHTML({
       )}
       style={{ contain: "content" }}
       aria-label={ariaLabel}
-      // eslint-disable-next-line react/no-danger -- purified upstream via DOMPurify
       dangerouslySetInnerHTML={{ __html: safe }}
     />
   );

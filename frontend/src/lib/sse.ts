@@ -46,7 +46,7 @@ export function subscribeSse(
     watchdog = setTimeout(() => {
       // No data in heartbeatTimeoutMs — assume dead, reconnect.
       if (!stopped) {
-        // eslint-disable-next-line no-console
+         
         console.warn("[sse] heartbeat timeout, reconnecting");
         scheduleReconnect();
       }
@@ -64,7 +64,7 @@ export function subscribeSse(
     }
     const result = SseEventSchema.safeParse(parsed);
     if (!result.success) {
-      // eslint-disable-next-line no-console
+       
       console.warn("[sse] dropped malformed event", result.error.issues);
       return;
     }
@@ -107,7 +107,7 @@ export function subscribeSse(
     try {
       token = await api.getSseToken(sessionId);
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.warn("[sse] token fetch failed, retrying", err);
       scheduleReconnect();
       return;

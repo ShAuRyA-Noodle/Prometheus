@@ -42,7 +42,7 @@ test.describe("accessibility", () => {
       );
 
       if (serious.length > 0) {
-        // eslint-disable-next-line no-console
+         
         console.error(
           `[a11y ${route.name}]`,
           serious.map((v) => ({ id: v.id, help: v.help, nodes: v.nodes.length })),
