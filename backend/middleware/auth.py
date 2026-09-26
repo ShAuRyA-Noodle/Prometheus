@@ -13,6 +13,7 @@ Anonymous routes:
 
 Populates `request.state.user` with a typed `AuthedUser` dataclass.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -125,15 +126,14 @@ async def _resolve_user(token: str) -> AuthedUser:
 
     uid: str = claims["uid"] if "uid" in claims else claims["sub"]
     email = claims.get("email")
-    is_anon = bool(claims.get("firebase", {}).get("sign_in_provider") == "anonymous"
-                   or claims.get("anonymous"))
+    is_anon = bool(
+        claims.get("firebase", {}).get("sign_in_provider") == "anonymous" or claims.get("anonymous")
+    )
 
     if firebase_verified:
         try:
-            await firestore_service.ensure_user(
-                uid=uid, email=email, is_anonymous=is_anon
-            )
-        except Exception as exc:  # noqa: BLE001
+            await firestore_service.ensure_user(uid=uid, email=email, is_anonymous=is_anon)
+        except Exception as exc:
             raise AccountStoreUnavailableError from exc
 
     user_record = None

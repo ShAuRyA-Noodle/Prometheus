@@ -1,4 +1,5 @@
 """Prompt-injection regression at the Idea Parser and moderation boundaries."""
+
 from __future__ import annotations
 
 import json
@@ -58,7 +59,7 @@ def test_forged_envelope_cannot_escape() -> None:
     )
     assert prompt.count("<</USER_UNTRUSTED>>") == 1
     assert prompt.count("<<USER_UNTRUSTED>>") == 1
-    assert '\\\"\\\"\\\"' in prompt
+    assert '\\"\\"\\"' in prompt
 
 
 @pytest.mark.asyncio

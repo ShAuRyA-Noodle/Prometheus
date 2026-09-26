@@ -17,6 +17,7 @@ Routes:
 Errors are mapped to JSON `{code, message, request_id}`. PrometheusError
 subclasses become 4xx/5xx based on their `code`.
 """
+
 from __future__ import annotations
 
 import os
@@ -235,9 +236,7 @@ def _install_error_handlers(app: FastAPI) -> None:
         )
 
     @app.exception_handler(StarletteHTTPException)
-    async def http_exception_handler(
-        request: Request, exc: StarletteHTTPException
-    ) -> JSONResponse:
+    async def http_exception_handler(request: Request, exc: StarletteHTTPException) -> JSONResponse:
         rid = getattr(request.state, "request_id", None)
         # If the route raised HTTPException(detail={...}) we want to surface that shape
         # while still adding request_id.
@@ -255,9 +254,7 @@ def _install_error_handlers(app: FastAPI) -> None:
         return JSONResponse(status_code=exc.status_code, content=payload, headers=exc.headers)
 
     @app.exception_handler(RequestValidationError)
-    async def validation_handler(
-        request: Request, exc: RequestValidationError
-    ) -> JSONResponse:
+    async def validation_handler(request: Request, exc: RequestValidationError) -> JSONResponse:
         return JSONResponse(
             status_code=422,
             content={
@@ -266,10 +263,7 @@ def _install_error_handlers(app: FastAPI) -> None:
                 "request_id": getattr(request.state, "request_id", None),
                 # Pydantic errors can contain the submitted value and exception
                 # objects in `input`/`ctx`. Do not echo or log idea text here.
-                "errors": [
-                    {"type": error["type"], "loc": error["loc"]}
-                    for error in exc.errors()
-                ],
+                "errors": [{"type": error["type"], "loc": error["loc"]} for error in exc.errors()],
             },
         )
 

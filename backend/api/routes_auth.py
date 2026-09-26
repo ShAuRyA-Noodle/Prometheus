@@ -57,7 +57,7 @@ async def auth_anon(payload: AnonRequest) -> TokenResponse:
             locale=payload.locale,
             region=payload.region,
         )
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         log.error("auth.anon.ensure_user_failed", err=str(e))
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -99,7 +99,7 @@ async def auth_verify(payload: VerifyRequest) -> TokenResponse:
 
     try:
         await firestore_service.ensure_user(uid=uid, email=email, is_anonymous=False)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         log.error("auth.verify.ensure_user_failed", err=str(e))
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

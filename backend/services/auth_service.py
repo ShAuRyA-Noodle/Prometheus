@@ -72,22 +72,19 @@ async def mint_session_jwt(
         "exp": now + _JWT_TTL_SECONDS,
         "nbf": now - 5,
     }
-    token = cast(str, jwt.encode(payload, settings.secret_key, algorithm=_JWT_ALG))
+    token = jwt.encode(payload, settings.secret_key, algorithm=_JWT_ALG)
     return token, _JWT_TTL_SECONDS
 
 
 async def verify_session_jwt(token: str) -> dict[str, Any]:
     try:
-        return cast(
-            dict[str, Any],
-            jwt.decode(
-                token,
-                settings.secret_key,
-                algorithms=[_JWT_ALG],
-                audience=_JWT_AUD,
-                issuer=_JWT_ISS,
-                options={"require": ["exp", "iat", "sub"]},
-            ),
+        return jwt.decode(
+            token,
+            settings.secret_key,
+            algorithms=[_JWT_ALG],
+            audience=_JWT_AUD,
+            issuer=_JWT_ISS,
+            options={"require": ["exp", "iat", "sub"]},
         )
     except jwt.PyJWTError as exc:
         log.warning("auth.session_jwt_invalid", err=str(exc))

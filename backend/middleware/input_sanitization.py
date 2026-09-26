@@ -117,7 +117,7 @@ class InputSanitizationMiddleware(BaseHTTPMiddleware):
 
         # BaseHTTPMiddleware's cached request forwards `_body` to the inner
         # app; changing only `_receive` leaves the original body cached.
-        request._body = new_body  # type: ignore[attr-defined]  # noqa: SLF001
+        request._body = new_body  # type: ignore[attr-defined]
 
         # Re-inject cleaned body into the ASGI receive stream.
         async def receive() -> dict[str, Any]:

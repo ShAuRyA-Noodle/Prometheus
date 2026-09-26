@@ -56,10 +56,13 @@ async def test_firebase_claims_require_uid(monkeypatch) -> None:
         await auth_service.verify_id_token("firebase-token")
 
 
-@pytest.mark.parametrize("route,body", [
-    ("/api/auth/anon", {"firebase_anon_token": "firebase-token"}),
-    ("/api/auth/verify", {"id_token": "firebase-token"}),
-])
+@pytest.mark.parametrize(
+    "route,body",
+    [
+        ("/api/auth/anon", {"firebase_anon_token": "firebase-token"}),
+        ("/api/auth/verify", {"id_token": "firebase-token"}),
+    ],
+)
 async def test_auth_route_requires_account_persistence(
     client, monkeypatch, route: str, body: dict[str, str]
 ) -> None:

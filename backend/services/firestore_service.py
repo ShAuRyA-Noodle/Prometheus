@@ -16,7 +16,7 @@ Collections:
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 from typing import Any
 
 import structlog
@@ -117,7 +117,7 @@ async def ensure_user(
     region: str = "US",
 ) -> None:
     """Create an account once, preserving tier and billing data on later logins."""
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     existing = await get_user(uid)
     if existing is None:
         await upsert_user(
