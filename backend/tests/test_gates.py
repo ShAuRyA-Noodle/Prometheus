@@ -1,4 +1,5 @@
 """Validation gate unit tests."""
+
 from __future__ import annotations
 
 import pytest
@@ -255,7 +256,7 @@ async def test_wave_3_gate_deck_slide_count_violation() -> None:
     from models.agent_schemas import PitchDeckResult, PitchSlide
 
     # Create an 8-slide deck (must be 10–14)
-    short_deck = PitchDeckResult(
+    short_deck = PitchDeckResult.model_construct(
         slides=[
             PitchSlide(
                 slide_number=i,
@@ -270,7 +271,7 @@ async def test_wave_3_gate_deck_slide_count_violation() -> None:
     state = {**_populated_wave1(), **_populated_wave3()}
     state["pitch_deck_result"] = short_deck
 
-    # Pydantic min_length=10 prevents construction of an 8-slide deck via .model_validate
-    # so the gate sees a SCHEMA_INVALID before DECK_SLIDE_COUNT — accept either.
+    # Bypass Pydantic construction to check the gate's independent guard.
     result = await wave_3_gate(state)
     assert result.passed is False
+    assert any(issue.code == "DECK_SLIDE_COUNT" for issue in result.issues)
