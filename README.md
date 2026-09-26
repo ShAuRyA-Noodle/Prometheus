@@ -6,6 +6,10 @@ PROMETHEUS is the operating layer between an idea and a company. A swarm of spec
 
 This is the **V2 production rebuild** of the original blueprint. Real-data integrations, validation gates, structured outputs, ownership transfer, payments, persistence, mobile, accessibility, and a streaming UX with in-app deck, landing, and financial editors. No demo theater, no fabricated stats, no service-account-owned files.
 
+**Deployment status:** This repository is not deployed. Automated releases are
+disabled until the hosting infrastructure and staging checks described in
+[`.github/DEPLOYMENT_STATUS.md`](.github/DEPLOYMENT_STATUS.md) are in place.
+
 ## Quickstart
 
 ```bash
