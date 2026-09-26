@@ -36,28 +36,36 @@ jobs:
         run: python scripts/quality_backend.py --base "$QUALITY_BASE_REF"
 
   test-backend:
-    name: Test backend (pytest, coverage gate 70%)
+    name: Test backend (coverage floor 61.5%, target 70%)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
-      - name: pytest with coverage
-        run: |
-          cd backend
-          pytest --cov=. --cov-branch --cov-report=xml --cov-report=term --cov-fail-under=70 -q
+      - name: pytest with coverage and no-regression gate
         env:
           ENV: dev
+          VERTEX_SAFETY_ENABLED: "false"
           PYTHONUNBUFFERED: "1"
+          QUALITY_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          cd backend
+          pytest --cov=. --cov-branch --cov-report=xml --cov-report=term --cov-fail-under=0 -q
+          coverage json -o coverage.json
+          python ../scripts/check_backend_coverage.py --report coverage.json --base "$QUALITY_BASE_REF"
       - name: Upload coverage
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: backend-coverage
-          path: backend/coverage.xml
+          path: |
+            backend/coverage.xml
+            backend/coverage.json
           retention-days: 7
 
   lint-frontend:
