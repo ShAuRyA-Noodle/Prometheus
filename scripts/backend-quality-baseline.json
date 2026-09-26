@@ -1,0 +1,1469 @@
+{
+  "diagnostics": {
+    "format": {
+      "backend/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/agents/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/agents/_summarize.py": {
+        "unformatted": 1
+      },
+      "backend/agents/articulation_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/base.py": {
+        "unformatted": 1
+      },
+      "backend/agents/brand_identity_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/business_model_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/competitive_analysis_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/executive_summary_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/financial_model_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/gates.py": {
+        "unformatted": 1
+      },
+      "backend/agents/go_to_market_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/idea_parser_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/landing_page_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/legal_documents_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/market_research_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/orchestrator.py": {
+        "unformatted": 1
+      },
+      "backend/agents/pitch_deck_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/risk_analysis_agent.py": {
+        "unformatted": 1
+      },
+      "backend/agents/tech_architecture_agent.py": {
+        "unformatted": 1
+      },
+      "backend/api/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/api/_dependencies.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_auth.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_billing.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_deploy.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_export.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_finance.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_generate.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_internal.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_marketplace.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_session.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_share.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_speech.py": {
+        "unformatted": 1
+      },
+      "backend/api/routes_user.py": {
+        "unformatted": 1
+      },
+      "backend/api/sse.py": {
+        "unformatted": 1
+      },
+      "backend/config.py": {
+        "unformatted": 1
+      },
+      "backend/errors.py": {
+        "unformatted": 1
+      },
+      "backend/logging_setup.py": {
+        "unformatted": 1
+      },
+      "backend/main.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/auth.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/cost_guard.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/idempotency.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/input_sanitization.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/observability.py": {
+        "unformatted": 1
+      },
+      "backend/middleware/rate_limit.py": {
+        "unformatted": 1
+      },
+      "backend/models/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/models/agent_schemas.py": {
+        "unformatted": 1
+      },
+      "backend/models/billing_models.py": {
+        "unformatted": 1
+      },
+      "backend/models/request_models.py": {
+        "unformatted": 1
+      },
+      "backend/models/response_models.py": {
+        "unformatted": 1
+      },
+      "backend/models/session_models.py": {
+        "unformatted": 1
+      },
+      "backend/models/user_models.py": {
+        "unformatted": 1
+      },
+      "backend/services/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/services/abuse_detector.py": {
+        "unformatted": 1
+      },
+      "backend/services/analytics_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/auth_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/billing_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/branch_diff_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/coherence_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/cost_audit.py": {
+        "unformatted": 1
+      },
+      "backend/services/cost_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/deploy_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/dlq_replay.py": {
+        "unformatted": 1
+      },
+      "backend/services/domain_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/export_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/finance_engine.py": {
+        "unformatted": 1
+      },
+      "backend/services/firestore_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/gemini_client.py": {
+        "unformatted": 1
+      },
+      "backend/services/google_workspace.py": {
+        "unformatted": 1
+      },
+      "backend/services/grounding_guard.py": {
+        "unformatted": 1
+      },
+      "backend/services/image_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/judge_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/legal_template_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/lock_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/market_data_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/moderation_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/notification_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/outbox_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/pii_scrubber.py": {
+        "unformatted": 1
+      },
+      "backend/services/prompt_registry.py": {
+        "unformatted": 1
+      },
+      "backend/services/retention_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/sanitization.py": {
+        "unformatted": 1
+      },
+      "backend/services/secret_rotator.py": {
+        "unformatted": 1
+      },
+      "backend/services/share_token_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/speech_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/sse_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/trademark_service.py": {
+        "unformatted": 1
+      },
+      "backend/services/vertex_safety.py": {
+        "unformatted": 1
+      },
+      "backend/services/wcag_service.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/test_cost_amplification.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/test_csrf_export.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/test_dos_simulation.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/test_oversized_input.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/test_session_id_idor.py": {
+        "unformatted": 1
+      },
+      "backend/tests/abuse/test_unicode_smuggling.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_cost_budget_exceeded.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_firestore_outage.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_gemini_outage.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_idempotent_replay.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_partial_workspace_creation.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_safety_block_cascade.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_worker_preemption.py": {
+        "unformatted": 1
+      },
+      "backend/tests/chaos/test_workspace_outage.py": {
+        "unformatted": 1
+      },
+      "backend/tests/conftest.py": {
+        "unformatted": 1
+      },
+      "backend/tests/fuzz/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/tests/fuzz/test_finance_engine_fuzz.py": {
+        "unformatted": 1
+      },
+      "backend/tests/fuzz/test_idea_text_fuzz.py": {
+        "unformatted": 1
+      },
+      "backend/tests/fuzz/test_sanitization_fuzz.py": {
+        "unformatted": 1
+      },
+      "backend/tests/fuzz/test_schema_fuzz.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/conftest.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_csrf_export.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_drive_scope.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_idor.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_iframe_sandbox.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_no_idea_text_in_logs.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_oversized_input.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_prompt_injection_branding.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_prompt_injection_grounding.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_prompt_injection_idea.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_prompt_injection_landing.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_prompt_injection_legal.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_unicode_smuggling.py": {
+        "unformatted": 1
+      },
+      "backend/tests/security/test_xss_render.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/_helpers.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_articulation.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_brand_identity.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_business_model.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_competitive_analysis.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_executive_summary.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_financial_model.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_go_to_market.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_idea_parser.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_landing_page.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_legal_documents.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_market_research.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_pitch_deck.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_risk_analysis.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_agents/test_tech_architecture.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_branch_diff.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_domain.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_finance_engine.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_gates.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_golden.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_grounding_guard.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_judge_service.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_lock_service.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_middleware_auth.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_middleware_cost_guard.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_middleware_idempotency.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_middleware_input_sanitization.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_middleware_observability.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_middleware_rate_limit.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_moderation.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_orchestrator.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_outbox_service.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_pii_scrubber.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_pipeline.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_billing.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_deploy.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_export.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_generate.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_internal.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_marketplace.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_session.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_speech.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_routes_user.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_sanitization.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_share_token.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_sse.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_trademark.py": {
+        "unformatted": 1
+      },
+      "backend/tests/test_workspace.py": {
+        "unformatted": 1
+      },
+      "backend/workers/__init__.py": {
+        "unformatted": 1
+      },
+      "backend/workers/billing_worker.py": {
+        "unformatted": 1
+      },
+      "backend/workers/pipeline_worker.py": {
+        "unformatted": 1
+      },
+      "backend/workers/retention_worker.py": {
+        "unformatted": 1
+      }
+    },
+    "lint": {
+      "backend/agents/_summarize.py": {
+        "ANN401": 2,
+        "PLC0415": 1,
+        "PLR2004": 1,
+        "RUF022": 1,
+        "RUF102": 1
+      },
+      "backend/agents/articulation_agent.py": {
+        "ANN401": 1
+      },
+      "backend/agents/base.py": {
+        "ARG002": 1,
+        "N818": 2,
+        "PLC0415": 1,
+        "RUF100": 1
+      },
+      "backend/agents/brand_identity_agent.py": {
+        "ANN401": 7,
+        "PLC0415": 3,
+        "PLR0912": 1,
+        "RUF102": 3
+      },
+      "backend/agents/business_model_agent.py": {
+        "ANN401": 1
+      },
+      "backend/agents/competitive_analysis_agent.py": {
+        "ANN401": 1
+      },
+      "backend/agents/executive_summary_agent.py": {
+        "PLC0415": 2,
+        "RUF102": 2,
+        "SIM105": 1
+      },
+      "backend/agents/financial_model_agent.py": {
+        "ANN401": 1,
+        "ARG002": 1,
+        "PLC0415": 1,
+        "RUF102": 1
+      },
+      "backend/agents/gates.py": {
+        "ANN401": 1,
+        "PLC0415": 2,
+        "PLR0912": 3,
+        "PLR0915": 1,
+        "PLR2004": 6,
+        "PLR5501": 1,
+        "RUF002": 1,
+        "RUF102": 2
+      },
+      "backend/agents/go_to_market_agent.py": {
+        "ANN401": 1
+      },
+      "backend/agents/landing_page_agent.py": {
+        "ANN401": 1,
+        "PLC0415": 2,
+        "RUF102": 2
+      },
+      "backend/agents/legal_documents_agent.py": {
+        "ANN401": 1,
+        "PLC0415": 1,
+        "RUF102": 1
+      },
+      "backend/agents/market_research_agent.py": {
+        "ANN401": 1
+      },
+      "backend/agents/orchestrator.py": {
+        "F401": 3,
+        "PLC0415": 2,
+        "RUF100": 8,
+        "SIM105": 1,
+        "UP035": 1
+      },
+      "backend/agents/pitch_deck_agent.py": {
+        "PLC0415": 1,
+        "PLR0912": 1,
+        "RUF102": 1,
+        "SIM105": 2
+      },
+      "backend/agents/risk_analysis_agent.py": {
+        "ANN401": 1
+      },
+      "backend/agents/tech_architecture_agent.py": {
+        "ANN401": 1
+      },
+      "backend/api/_dependencies.py": {
+        "ANN202": 1,
+        "RUF100": 1
+      },
+      "backend/api/routes_auth.py": {
+        "ANN001": 1,
+        "ARG001": 1,
+        "B008": 1,
+        "PLC0415": 3,
+        "PLR1711": 1,
+        "RET501": 1,
+        "RUF100": 2
+      },
+      "backend/api/routes_billing.py": {
+        "ANN001": 2,
+        "B008": 2,
+        "I001": 1,
+        "PLC0415": 3
+      },
+      "backend/api/routes_deploy.py": {
+        "ANN001": 1,
+        "B008": 1,
+        "PLC0415": 1,
+        "RUF100": 2
+      },
+      "backend/api/routes_export.py": {
+        "ANN001": 1,
+        "B008": 1,
+        "E501": 1,
+        "F401": 1,
+        "PLC0415": 1,
+        "RUF100": 1
+      },
+      "backend/api/routes_finance.py": {
+        "ANN401": 1,
+        "B008": 1,
+        "RUF100": 1
+      },
+      "backend/api/routes_generate.py": {
+        "ANN001": 1,
+        "B008": 1,
+        "B904": 1,
+        "PLC0415": 3,
+        "RUF006": 1,
+        "RUF100": 1,
+        "UP017": 1
+      },
+      "backend/api/routes_internal.py": {
+        "PLC0415": 1,
+        "RUF100": 2
+      },
+      "backend/api/routes_marketplace.py": {
+        "ANN001": 1,
+        "B008": 1,
+        "PLC0415": 1
+      },
+      "backend/api/routes_session.py": {
+        "ANN001": 6,
+        "ARG001": 2,
+        "B008": 6,
+        "F401": 3,
+        "PLC0415": 8,
+        "RET501": 2,
+        "UP017": 1
+      },
+      "backend/api/routes_share.py": {
+        "PLR2004": 1,
+        "RET501": 2
+      },
+      "backend/api/routes_speech.py": {
+        "ANN001": 1,
+        "B008": 2,
+        "PLC0415": 1,
+        "RUF100": 1
+      },
+      "backend/api/routes_user.py": {
+        "ANN001": 4,
+        "B008": 5,
+        "F401": 1,
+        "PLC0415": 6,
+        "RET501": 2,
+        "UP017": 1
+      },
+      "backend/api/sse.py": {
+        "ANN001": 1,
+        "ANN202": 1,
+        "PLC0415": 1,
+        "S110": 1,
+        "SIM105": 1,
+        "SIM108": 1,
+        "UP035": 1
+      },
+      "backend/errors.py": {
+        "N818": 6
+      },
+      "backend/logging_setup.py": {
+        "ANN401": 1
+      },
+      "backend/main.py": {
+        "ARG001": 1,
+        "PLC0415": 9,
+        "PTH110": 1,
+        "UP035": 1
+      },
+      "backend/middleware/auth.py": {
+        "PLC0415": 1,
+        "SIM103": 1
+      },
+      "backend/middleware/cost_guard.py": {
+        "PLC0415": 1,
+        "UP017": 1
+      },
+      "backend/middleware/idempotency.py": {
+        "PLC0415": 1,
+        "RUF100": 1
+      },
+      "backend/middleware/input_sanitization.py": {
+        "ANN401": 2,
+        "PLE2502": 2,
+        "PLE2515": 1,
+        "PLR0911": 1,
+        "RUF100": 1
+      },
+      "backend/middleware/rate_limit.py": {
+        "ANN401": 2,
+        "PLR2004": 1
+      },
+      "backend/models/agent_schemas.py": {
+        "PLR2004": 2
+      },
+      "backend/models/billing_models.py": {
+        "UP042": 1
+      },
+      "backend/models/session_models.py": {
+        "UP042": 4
+      },
+      "backend/models/user_models.py": {
+        "UP042": 1
+      },
+      "backend/services/abuse_detector.py": {
+        "PLC0415": 4,
+        "PLR2004": 1,
+        "UP017": 3,
+        "UP042": 1
+      },
+      "backend/services/analytics_service.py": {
+        "ANN401": 1,
+        "PLC0415": 1,
+        "PLR0911": 1,
+        "PLW0603": 6,
+        "S110": 1
+      },
+      "backend/services/auth_service.py": {
+        "PLC0415": 3,
+        "RET504": 1,
+        "RUF100": 1,
+        "UP017": 3
+      },
+      "backend/services/billing_service.py": {
+        "ANN401": 1,
+        "PLC0415": 4,
+        "PLW0603": 1,
+        "UP017": 1
+      },
+      "backend/services/branch_diff_service.py": {
+        "ANN401": 1,
+        "PLC0415": 1,
+        "PLR2004": 2,
+        "UP017": 1
+      },
+      "backend/services/coherence_service.py": {
+        "BLE001": 6,
+        "F401": 2,
+        "PLR0912": 1,
+        "PLR0915": 1,
+        "PLR2004": 3,
+        "S110": 3
+      },
+      "backend/services/cost_audit.py": {
+        "ANN401": 1,
+        "PLC0415": 1,
+        "RUF046": 1,
+        "UP017": 3
+      },
+      "backend/services/cost_service.py": {
+        "ANN401": 1,
+        "PLC0415": 2,
+        "UP017": 1
+      },
+      "backend/services/deploy_service.py": {
+        "ANN401": 1,
+        "ARG001": 1,
+        "BLE001": 1,
+        "PLR2004": 1
+      },
+      "backend/services/dlq_replay.py": {
+        "ANN401": 1,
+        "PLC0415": 2,
+        "PLR0917": 1,
+        "UP017": 5
+      },
+      "backend/services/domain_service.py": {
+        "B905": 1,
+        "BLE001": 1,
+        "C416": 1,
+        "C420": 5,
+        "PLR2004": 3,
+        "SIM103": 1
+      },
+      "backend/services/export_service.py": {
+        "ANN401": 3,
+        "ARG001": 5,
+        "E501": 2,
+        "F401": 9,
+        "PLC0415": 10,
+        "PLR0912": 1,
+        "PLR0915": 2,
+        "PLR2004": 1,
+        "RUF005": 1,
+        "RUF100": 1,
+        "SIM102": 1,
+        "UP017": 1
+      },
+      "backend/services/finance_engine.py": {
+        "PLC0415": 2,
+        "PLR0912": 1,
+        "PLR0915": 1,
+        "RUF046": 1
+      },
+      "backend/services/firestore_service.py": {
+        "ANN401": 4,
+        "BLE001": 1,
+        "PLC0415": 3,
+        "PLW0603": 1,
+        "RUF022": 1,
+        "RUF100": 4,
+        "UP017": 15
+      },
+      "backend/services/gemini_client.py": {
+        "ANN401": 6,
+        "BLE001": 2,
+        "E501": 1,
+        "PLC0415": 2,
+        "PLR0912": 1,
+        "PLW0603": 4,
+        "RUF100": 1,
+        "S110": 1
+      },
+      "backend/services/google_workspace.py": {
+        "A002": 1,
+        "ANN401": 6,
+        "BLE001": 1,
+        "E501": 1,
+        "PLC0415": 3,
+        "PLW0603": 2,
+        "RUF100": 1
+      },
+      "backend/services/grounding_guard.py": {
+        "ANN401": 2,
+        "B007": 1,
+        "PLC0415": 3
+      },
+      "backend/services/image_service.py": {
+        "ANN401": 1,
+        "I001": 1,
+        "PLC0415": 3,
+        "PLR2004": 2,
+        "PLW0603": 1
+      },
+      "backend/services/judge_service.py": {
+        "BLE001": 1,
+        "E501": 1,
+        "PLC0415": 1,
+        "PLR2004": 1,
+        "RUF001": 1,
+        "RUF002": 1,
+        "RUF022": 1,
+        "SIM108": 1,
+        "UP017": 3
+      },
+      "backend/services/legal_template_service.py": {
+        "PLC0415": 1,
+        "PLR0917": 1,
+        "RUF100": 1,
+        "S701": 1
+      },
+      "backend/services/lock_service.py": {
+        "ANN401": 4,
+        "PLC0415": 4,
+        "UP017": 2,
+        "UP035": 1
+      },
+      "backend/services/market_data_service.py": {
+        "F401": 1,
+        "PLC0415": 1,
+        "PLR0911": 1,
+        "PLR2004": 3,
+        "UP017": 1
+      },
+      "backend/services/moderation_service.py": {
+        "BLE001": 1,
+        "E501": 4,
+        "F401": 1,
+        "I001": 1,
+        "PLC0415": 2,
+        "PLR2004": 2
+      },
+      "backend/services/notification_service.py": {
+        "ARG001": 1,
+        "PLC0415": 1
+      },
+      "backend/services/outbox_service.py": {
+        "ANN401": 5,
+        "PLC0415": 2,
+        "RUF100": 1,
+        "UP017": 8,
+        "UP035": 1,
+        "UP042": 2
+      },
+      "backend/services/pii_scrubber.py": {
+        "ANN401": 2,
+        "PLR2004": 3,
+        "PLW2901": 2,
+        "RET504": 1,
+        "RUF002": 1
+      },
+      "backend/services/prompt_registry.py": {
+        "ANN401": 1,
+        "E501": 1,
+        "PLC0415": 1,
+        "UP017": 2
+      },
+      "backend/services/retention_service.py": {
+        "I001": 1,
+        "PLC0415": 2,
+        "PLR2004": 1,
+        "UP017": 1
+      },
+      "backend/services/sanitization.py": {
+        "F401": 1,
+        "PLC0415": 3
+      },
+      "backend/services/secret_rotator.py": {
+        "ANN401": 1,
+        "E501": 1,
+        "PLC0415": 2,
+        "UP017": 3
+      },
+      "backend/services/share_token_service.py": {
+        "PLC0415": 5,
+        "PLR0911": 1,
+        "S110": 1,
+        "S112": 1,
+        "UP017": 5
+      },
+      "backend/services/speech_service.py": {
+        "ANN401": 2,
+        "PLC0415": 3,
+        "PLR2004": 1,
+        "UP035": 1
+      },
+      "backend/services/sse_service.py": {
+        "ANN401": 1,
+        "PLC0415": 2,
+        "RUF006": 1,
+        "S110": 1,
+        "SIM105": 1,
+        "UP012": 1,
+        "UP017": 4,
+        "UP041": 1
+      },
+      "backend/services/trademark_service.py": {
+        "BLE001": 2,
+        "F401": 1,
+        "PLC0415": 1,
+        "PLR2004": 2,
+        "S112": 1
+      },
+      "backend/services/vertex_safety.py": {
+        "PLC0415": 2,
+        "PLR2004": 1
+      },
+      "backend/services/wcag_service.py": {
+        "BLE001": 1,
+        "PLC0415": 1,
+        "PLR2004": 3,
+        "UP035": 1
+      },
+      "backend/tests/abuse/test_cost_amplification.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/abuse/test_csrf_export.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/abuse/test_dos_simulation.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/abuse/test_session_id_idor.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/abuse/test_unicode_smuggling.py": {
+        "PLC0415": 1,
+        "PLE2502": 2,
+        "PLE2515": 1
+      },
+      "backend/tests/chaos/test_cost_budget_exceeded.py": {
+        "PLC0415": 5
+      },
+      "backend/tests/chaos/test_firestore_outage.py": {
+        "PLC0415": 4
+      },
+      "backend/tests/chaos/test_gemini_outage.py": {
+        "PLC0415": 6
+      },
+      "backend/tests/chaos/test_idempotent_replay.py": {
+        "F401": 1,
+        "PLC0415": 1
+      },
+      "backend/tests/chaos/test_partial_workspace_creation.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/chaos/test_safety_block_cascade.py": {
+        "F401": 1,
+        "PLC0415": 6
+      },
+      "backend/tests/chaos/test_worker_preemption.py": {
+        "PLC0415": 5
+      },
+      "backend/tests/chaos/test_workspace_outage.py": {
+        "PLC0415": 6
+      },
+      "backend/tests/conftest.py": {
+        "E501": 5,
+        "F401": 3,
+        "PLC0415": 12,
+        "SIM108": 1,
+        "UP017": 3,
+        "UP035": 1
+      },
+      "backend/tests/fuzz/test_finance_engine_fuzz.py": {
+        "I001": 1,
+        "PLC0415": 1,
+        "PLR0917": 1
+      },
+      "backend/tests/fuzz/test_idea_text_fuzz.py": {
+        "BLE001": 1,
+        "I001": 1,
+        "PLC0415": 1
+      },
+      "backend/tests/fuzz/test_sanitization_fuzz.py": {
+        "F401": 1,
+        "I001": 1,
+        "PLC0415": 2
+      },
+      "backend/tests/fuzz/test_schema_fuzz.py": {
+        "I001": 1,
+        "PLC0415": 3
+      },
+      "backend/tests/security/conftest.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/security/test_csrf_export.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/security/test_drive_scope.py": {
+        "BLE001": 1,
+        "E501": 1,
+        "PLC0415": 1,
+        "S112": 1
+      },
+      "backend/tests/security/test_idor.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/security/test_iframe_sandbox.py": {
+        "BLE001": 1
+      },
+      "backend/tests/security/test_no_idea_text_in_logs.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/security/test_prompt_injection_branding.py": {
+        "PLC0415": 6
+      },
+      "backend/tests/security/test_prompt_injection_grounding.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/security/test_prompt_injection_idea.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/security/test_prompt_injection_landing.py": {
+        "F401": 1,
+        "PLC0415": 4
+      },
+      "backend/tests/security/test_prompt_injection_legal.py": {
+        "PLC0415": 6
+      },
+      "backend/tests/security/test_unicode_smuggling.py": {
+        "PLC0415": 1,
+        "PLE2502": 6,
+        "PLE2515": 3
+      },
+      "backend/tests/security/test_xss_render.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/test_agents/_helpers.py": {
+        "F401": 1,
+        "PLC0415": 13,
+        "UP041": 1
+      },
+      "backend/tests/test_agents/test_articulation.py": {
+        "PLC0415": 8,
+        "RET504": 1
+      },
+      "backend/tests/test_agents/test_brand_identity.py": {
+        "PLC0415": 15
+      },
+      "backend/tests/test_agents/test_business_model.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_agents/test_competitive_analysis.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_agents/test_executive_summary.py": {
+        "PLC0415": 11
+      },
+      "backend/tests/test_agents/test_financial_model.py": {
+        "I001": 1,
+        "PLC0415": 15
+      },
+      "backend/tests/test_agents/test_go_to_market.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_agents/test_idea_parser.py": {
+        "PLC0415": 19,
+        "UP041": 1
+      },
+      "backend/tests/test_agents/test_landing_page.py": {
+        "PLC0415": 10
+      },
+      "backend/tests/test_agents/test_legal_documents.py": {
+        "PLC0415": 13
+      },
+      "backend/tests/test_agents/test_market_research.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_agents/test_pitch_deck.py": {
+        "PLC0415": 11
+      },
+      "backend/tests/test_agents/test_risk_analysis.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_agents/test_tech_architecture.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_branch_diff.py": {
+        "PLC0415": 4
+      },
+      "backend/tests/test_domain.py": {
+        "PLC0415": 3
+      },
+      "backend/tests/test_finance_engine.py": {
+        "I001": 1,
+        "PLC0415": 4,
+        "PLR0917": 1
+      },
+      "backend/tests/test_gates.py": {
+        "PLC0415": 29,
+        "RUF003": 1
+      },
+      "backend/tests/test_golden.py": {
+        "PLC0415": 4
+      },
+      "backend/tests/test_grounding_guard.py": {
+        "PLC0415": 8
+      },
+      "backend/tests/test_judge_service.py": {
+        "PLC0415": 4
+      },
+      "backend/tests/test_lock_service.py": {
+        "F401": 1,
+        "PLC0415": 7,
+        "S105": 1,
+        "UP017": 1
+      },
+      "backend/tests/test_middleware_auth.py": {
+        "PLC0415": 3
+      },
+      "backend/tests/test_middleware_cost_guard.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/test_middleware_input_sanitization.py": {
+        "PLE2502": 1,
+        "PLE2515": 1
+      },
+      "backend/tests/test_middleware_observability.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/test_middleware_rate_limit.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/test_moderation.py": {
+        "PLC0415": 7
+      },
+      "backend/tests/test_orchestrator.py": {
+        "PLC0415": 10
+      },
+      "backend/tests/test_outbox_service.py": {
+        "PLC0415": 5
+      },
+      "backend/tests/test_pii_scrubber.py": {
+        "F401": 1,
+        "PLC0415": 12
+      },
+      "backend/tests/test_pipeline.py": {
+        "PLC0415": 13
+      },
+      "backend/tests/test_routes_billing.py": {
+        "F401": 3,
+        "PLC0415": 4
+      },
+      "backend/tests/test_routes_deploy.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/test_routes_export.py": {
+        "PLC0415": 1
+      },
+      "backend/tests/test_routes_generate.py": {
+        "PLC0415": 2,
+        "RUF012": 2
+      },
+      "backend/tests/test_routes_internal.py": {
+        "PLC0415": 7
+      },
+      "backend/tests/test_routes_marketplace.py": {
+        "F401": 1,
+        "PLC0415": 2
+      },
+      "backend/tests/test_routes_session.py": {
+        "PLC0415": 3
+      },
+      "backend/tests/test_routes_user.py": {
+        "PLC0415": 2
+      },
+      "backend/tests/test_sanitization.py": {
+        "PLC0415": 5
+      },
+      "backend/tests/test_share_token.py": {
+        "PLC0415": 9,
+        "RUF059": 1
+      },
+      "backend/tests/test_sse.py": {
+        "F401": 1,
+        "PLC0415": 3
+      },
+      "backend/tests/test_trademark.py": {
+        "PLC0415": 4
+      },
+      "backend/tests/test_workspace.py": {
+        "PLC0415": 5,
+        "SIM105": 1
+      },
+      "backend/workers/billing_worker.py": {
+        "F841": 1,
+        "PLC0415": 1,
+        "RUF100": 1,
+        "SIM102": 1
+      },
+      "backend/workers/pipeline_worker.py": {
+        "PLC0415": 2,
+        "RUF100": 1,
+        "UP017": 1,
+        "UP041": 1
+      },
+      "backend/workers/retention_worker.py": {
+        "PLC0415": 1,
+        "RUF100": 1
+      }
+    },
+    "mypy": {
+      "backend/agents/_summarize.py": {
+        "assignment": 1,
+        "attr-defined": 1
+      },
+      "backend/agents/brand_identity_agent.py": {
+        "attr-defined": 2,
+        "has-type": 10
+      },
+      "backend/agents/executive_summary_agent.py": {
+        "arg-type": 1,
+        "attr-defined": 1,
+        "var-annotated": 1
+      },
+      "backend/agents/financial_model_agent.py": {
+        "call-arg": 1,
+        "misc": 1
+      },
+      "backend/agents/gates.py": {
+        "attr-defined": 2
+      },
+      "backend/agents/landing_page_agent.py": {
+        "attr-defined": 1
+      },
+      "backend/agents/legal_documents_agent.py": {
+        "arg-type": 1,
+        "call-arg": 2,
+        "misc": 1
+      },
+      "backend/agents/orchestrator.py": {
+        "unused-ignore": 2
+      },
+      "backend/agents/pitch_deck_agent.py": {
+        "arg-type": 2,
+        "call-arg": 2
+      },
+      "backend/services/abuse_detector.py": {
+        "no-untyped-call": 1,
+        "return-value": 1,
+        "unused-ignore": 5
+      },
+      "backend/services/analytics_service.py": {
+        "no-any-return": 1
+      },
+      "backend/services/auth_service.py": {
+        "import-untyped": 2,
+        "no-any-return": 3,
+        "unused-ignore": 3
+      },
+      "backend/services/billing_service.py": {
+        "unused-ignore": 1
+      },
+      "backend/services/branch_diff_service.py": {
+        "unused-ignore": 1
+      },
+      "backend/services/cost_audit.py": {
+        "unused-ignore": 1
+      },
+      "backend/services/cost_service.py": {
+        "unused-ignore": 2
+      },
+      "backend/services/deploy_service.py": {
+        "no-any-return": 1
+      },
+      "backend/services/dlq_replay.py": {
+        "arg-type": 1,
+        "unused-ignore": 2
+      },
+      "backend/services/export_service.py": {
+        "assignment": 1,
+        "import-untyped": 1,
+        "no-any-unimported": 1,
+        "type-arg": 11,
+        "unused-ignore": 3
+      },
+      "backend/services/finance_engine.py": {
+        "import-untyped": 1,
+        "unused-ignore": 2
+      },
+      "backend/services/firestore_service.py": {
+        "import-untyped": 1,
+        "no-any-return": 5,
+        "unused-ignore": 3
+      },
+      "backend/services/gemini_client.py": {
+        "unused-ignore": 2
+      },
+      "backend/services/google_workspace.py": {
+        "import-untyped": 1,
+        "no-untyped-call": 1,
+        "unused-ignore": 3
+      },
+      "backend/services/grounding_guard.py": {
+        "unused-ignore": 2
+      },
+      "backend/services/image_service.py": {
+        "arg-type": 1,
+        "attr-defined": 1,
+        "no-any-return": 1,
+        "unused-ignore": 3
+      },
+      "backend/services/legal_template_service.py": {
+        "unused-ignore": 1
+      },
+      "backend/services/lock_service.py": {
+        "no-any-return": 3,
+        "unused-ignore": 7
+      },
+      "backend/services/market_data_service.py": {
+        "arg-type": 1
+      },
+      "backend/services/moderation_service.py": {
+        "unused-ignore": 2
+      },
+      "backend/services/outbox_service.py": {
+        "unused-ignore": 3
+      },
+      "backend/services/pii_scrubber.py": {
+        "no-any-return": 1,
+        "unused-ignore": 1
+      },
+      "backend/services/prompt_registry.py": {
+        "no-any-return": 1,
+        "unused-ignore": 1
+      },
+      "backend/services/retention_service.py": {
+        "unused-ignore": 5
+      },
+      "backend/services/sanitization.py": {
+        "unused-ignore": 3
+      },
+      "backend/services/secret_rotator.py": {
+        "unused-ignore": 2
+      },
+      "backend/services/share_token_service.py": {
+        "unused-ignore": 5
+      },
+      "backend/services/speech_service.py": {
+        "attr-defined": 1,
+        "no-any-return": 2,
+        "unused-ignore": 3
+      },
+      "backend/services/sse_service.py": {
+        "unused-ignore": 1
+      },
+      "backend/services/trademark_service.py": {
+        "arg-type": 1,
+        "operator": 2,
+        "union-attr": 2,
+        "unused-ignore": 1
+      },
+      "backend/services/vertex_safety.py": {
+        "unused-ignore": 2
+      },
+      "backend/services/wcag_service.py": {
+        "unused-ignore": 1
+      }
+    }
+  },
+  "python": "3.11",
+  "schema": 1,
+  "tools": {
+    "mypy": "1.14.1",
+    "ruff": "0.16.9"
+  }
+}

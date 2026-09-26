@@ -1,0 +1,13 @@
+# These three historical matches are example idempotency keys in tests and docs.
+# Keep the full-history scan and ignore only these exact known fixtures.
+062debf42f82d179327399e4677fed79848b530b:backend/tests/test_middleware_idempotency.py:generic-api-key:15
+062debf42f82d179327399e4677fed79848b530b:backend/tests/test_routes_billing.py:generic-api-key:40
+062debf42f82d179327399e4677fed79848b530b:docs/ARCHITECTURE.md:generic-api-key:219
+
+# The formatter baseline contains only source-file SHA-256 digests. These five
+# generic-api-key matches were checked as 64-hex-character digest entries.
+4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:43
+4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:87
+4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:99
+4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:108
+4f7379900b4a387b60908f11ffdcff097dc97fc1:frontend/scripts/format-baseline.json:generic-api-key:109

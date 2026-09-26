@@ -1,9 +1,12 @@
 """Share-token mint/verify/revoke tests."""
+
 from __future__ import annotations
 
 import time
 
 import pytest
+
+from services import share_token_service as sts
 
 pytestmark = pytest.mark.asyncio
 
@@ -26,6 +29,13 @@ async def test_verify_bad_signature() -> None:
     token = sts.mint("sess_abc")
     bad = token[:-2] + "AA"
     assert sts.verify(bad) is None
+
+
+async def test_verify_malformed_signature() -> None:
+    token = sts.mint("sess_abc")
+    header, payload, _signature = token.split(".")
+    assert sts.verify(f"{header}.{payload}.!") is None
+    assert sts.verify(f"{header}.{payload}.é") is None
 
 
 async def test_verify_expired_token(monkeypatch) -> None:

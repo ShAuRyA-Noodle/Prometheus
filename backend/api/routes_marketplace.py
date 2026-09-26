@@ -5,8 +5,6 @@ import structlog
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 
-from models.billing_models import MarketplaceJob
-
 from ._dependencies import get_current_user
 
 router = APIRouter(prefix="/marketplace", tags=["marketplace"])
@@ -54,20 +52,24 @@ async def create_order(
             detail={"code": "NOT_IMPLEMENTED", "message": "marketplace not wired"},
         )
 
-    job: MarketplaceJob = await create_job(
-        uid=user.uid,
-        company_id=payload.company_id,
-        job_type=payload.job_type,
-        price_usd=price,
-        notes=payload.notes,
-    )
-    job_id = getattr(job, "job_id", None) or getattr(job, "id", None) or "job_unknown"
-
     create_one_off = getattr(billing_service, "create_marketplace_checkout", None)
     if not callable(create_one_off):
         raise HTTPException(
             status_code=status.HTTP_501_NOT_IMPLEMENTED,
             detail={"code": "NOT_IMPLEMENTED", "message": "billing.marketplace not wired"},
+        )
+
+    job_id: str = await create_job(
+        uid=user.uid,
+        company_id=payload.company_id,
+        job_type=payload.job_type,
+        session_id=None,
+        status="pending_payment",
+    )
+    if not job_id:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={"code": "JOB_CREATION_FAILED", "message": "marketplace job unavailable"},
         )
 
     checkout = await create_one_off(

@@ -332,11 +332,8 @@ function escapeAttr(input: string): string {
   return escape(input);
 }
 
-function renderHero(s: { id: string; data: LandingHero }, tokens: ResolvedTokens): string {
+function renderHero(s: { id: string; data: LandingHero }): string {
   const { eyebrow, headline, subheadline, cta_label, cta_href, hero_image_url, variant } = s.data;
-  const bg = tokens.bg;
-  const fg = tokens.fg;
-  const accent = tokens.accent;
   if (variant === "centered") {
     return `<section class="pm-hero pm-hero--centered" data-section="${s.id}">
       <div class="pm-hero-inner">
@@ -524,10 +521,10 @@ function renderFooter(s: { id: string; data: LandingFooter }): string {
   </footer>`;
 }
 
-function renderSection(section: LandingSection, tokens: ResolvedTokens): string {
+function renderSection(section: LandingSection): string {
   switch (section.type) {
     case "hero":
-      return renderHero(section, tokens);
+      return renderHero(section);
     case "features":
       return renderFeatures(section);
     case "pricing":
@@ -663,7 +660,7 @@ ${(doc.section_color_overrides
       .join("\n")
   : "")}
 `;
-  const body = doc.sections.map((s) => renderSection(s, tokens)).join("\n");
+  const body = doc.sections.map((s) => renderSection(s)).join("\n");
   const safeBody = purifyHTML(body);
   return { html: safeBody, css };
 }

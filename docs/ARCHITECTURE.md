@@ -630,3 +630,19 @@ worker.run (linked via X-Trace-Id)
 ---
 
 > **The diagrams in this doc are the contract.** When you change the topology, update the diagram in the same PR. CI fails the PR if `backend/agents/orchestrator.py` changes and `docs/ARCHITECTURE.md` does not.
+
+## Current implementation status (2026-09-26)
+
+This repository is undeployed; [deployment status](../.github/DEPLOYMENT_STATUS.md)
+records the missing infrastructure and paid-flow prerequisites. The API
+authentication routes now verify Firebase claims, persist a user before issuing
+a backend session JWT, and reject a failed persistence step. Middleware accepts
+verified Firebase tokens and backend session JWTs. Protected SSE streams still
+check the requested session's owner against the authenticated user.
+
+Marketplace order creation now uses the Firestore job service's actual
+signature and refuses to create an unpaid job when checkout is unavailable.
+The frontend and backend marketplace paths, Stripe checkout/webhook handling,
+and subscription checkout service contract still need integration work before
+paid flows can be enabled. Mocked route tests do not validate those provider
+flows.

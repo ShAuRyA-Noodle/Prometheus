@@ -1,7 +1,7 @@
-"""Gemini structured-output client.
+"""Gemini structured-output and plain-text client.
 
-Single entry point: ``call_gemini_structured``. All agents go through here.
-Uses the ``google-genai`` SDK. Enforces:
+Shared entry points for structured and plain-text Gemini calls. Uses the
+``google-genai`` SDK. Structured calls enforce:
   - response_mime_type = application/json
   - response_schema   = pydantic model_json_schema (no regex-extraction fallbacks)
   - optional grounded google_search tool
@@ -9,6 +9,7 @@ Uses the ``google-genai`` SDK. Enforces:
   - SAFETY block detection via finish_reason / prompt_feedback
   - usage_metadata token counting
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -305,9 +306,62 @@ async def call_gemini_structured(
     return payload, in_tok, out_tok, False
 
 
+async def call_gemini_text(
+    model: str,
+    prompt: str,
+    temperature: float = 0.4,
+    max_output_tokens: int = 1024,
+) -> str:
+    """Generate plain text for summaries and brand-name alternatives.
+
+    Safety blocks and empty responses are errors so callers can use their
+    existing fallback paths instead of treating missing text as success.
+    """
+    client = _get_client()
+    assert _genai_types is not None  # _get_client populates this
+    config = _genai_types.GenerateContentConfig(
+        temperature=temperature,
+        max_output_tokens=max_output_tokens,
+    )
+
+    async def _attempt() -> object:
+        try:
+            return await asyncio.to_thread(
+                client.models.generate_content,
+                model=model,
+                contents=prompt,
+                config=config,
+            )
+        except Exception as exc:
+            cls = _classify_exception(exc)
+            raise cls(str(exc)) from exc
+
+    try:
+        async for attempt in AsyncRetrying(
+            stop=stop_after_attempt(2),
+            wait=wait_exponential(multiplier=1.0, min=1.0, max=8.0),
+            retry=retry_if_exception_type(GeminiTransientError),
+            reraise=True,
+        ):
+            with attempt:
+                response = await _attempt()
+    except RetryError as re:
+        raise GeminiError("retry exhausted") from re
+
+    if _was_safety_blocked(response):
+        log.warning("gemini.safety_blocked", model=model)
+        raise GeminiError("model response blocked by safety filters")
+
+    text = _extract_text(response).strip()
+    if not text:
+        raise GeminiSchemaError("empty model response")
+    return text
+
+
 __all__ = [
     "GeminiError",
     "GeminiSchemaError",
     "GeminiTransientError",
     "call_gemini_structured",
+    "call_gemini_text",
 ]

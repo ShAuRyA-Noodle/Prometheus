@@ -43,7 +43,7 @@ function readConfig(): FirebaseConfig {
     appId: env.VITE_FIREBASE_APP_ID ?? "",
   };
   if (!cfg.apiKey || !cfg.projectId) {
-    // eslint-disable-next-line no-console
+     
     console.warn(
       "[firebase] Missing VITE_FIREBASE_* env vars. Auth + Firestore will not work.",
     );

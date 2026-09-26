@@ -199,7 +199,11 @@ export function GeneratePage(): JSX.Element {
   }, [session, sessionId, navigate, errorToast]);
 
   // ─── Derived data ──────────────────────────────────────────────────────────
-  const records = (session?.agents ?? {}) as Partial<Record<AgentName, AgentRecord>>;
+  const agents = session?.agents;
+  const records = useMemo(
+    () => (agents ?? {}) as Partial<Record<AgentName, AgentRecord>>,
+    [agents],
+  );
   const completed = useMemo(
     () => Object.values(records).filter((r) => r?.status === "completed" || r?.status === "skipped").length,
     [records],

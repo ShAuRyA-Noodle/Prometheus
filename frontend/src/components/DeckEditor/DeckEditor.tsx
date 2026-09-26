@@ -16,8 +16,7 @@
  *   Cmd-/Ctrl-Backspace  — delete active slide
  *   Cmd-/Ctrl-S          — manual save (parent persists)
  */
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useState } from "react";
 import { Download, FileImage, Presentation, Save } from "lucide-react";
 import type { BrandIdentityResult, PitchDeckResult, PitchSlide } from "../../types/agents";
 import { SlideThumbnails } from "./SlideThumbnails";

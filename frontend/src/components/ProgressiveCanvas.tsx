@@ -31,7 +31,6 @@ import type {
   MarketResearchResult,
   PitchDeckResult,
 } from "../types/agents";
-import { SandboxedIframe } from "./Sandbox/SandboxedIframe";
 import { PurifiedHTML } from "./Sandbox/PurifiedHTML";
 import { DataPoint, formatCurrency } from "./DataPoint";
 import { buildSandboxedDoc } from "../lib/purify";

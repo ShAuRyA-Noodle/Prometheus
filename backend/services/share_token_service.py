@@ -12,6 +12,7 @@ View tracking: ``track_view(token, viewer_meta)`` writes to
 from __future__ import annotations
 
 import asyncio
+import binascii
 import hashlib
 import hmac
 import json
@@ -125,9 +126,12 @@ def verify(token: str) -> ShareClaims | None:
     except ValueError:
         return None
 
-    signing_input = f"{h}.{p}".encode("ascii")
+    try:
+        signing_input = f"{h}.{p}".encode("ascii")
+        actual = _b64u_decode(s)
+    except (UnicodeError, ValueError, binascii.Error):
+        return None
     expected = _sign(signing_input)
-    actual = _b64u_decode(s)
     if not hmac.compare_digest(expected, actual):
         log.warning("share.verify.bad_signature")
         return None

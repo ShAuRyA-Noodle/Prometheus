@@ -7,7 +7,7 @@
  */
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUp, Check, Loader2, Sparkles, Undo2, X } from "lucide-react";
+import { ArrowUp, Check, Loader2, Sparkles, Undo2 } from "lucide-react";
 import type { PitchDeckResult } from "../../types/agents";
 import { cn } from "../../lib/cn";
 

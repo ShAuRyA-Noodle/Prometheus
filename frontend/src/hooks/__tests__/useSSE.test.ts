@@ -42,11 +42,11 @@ Object.assign(
 const _state = (subscribeSseMock as unknown as { _state: typeof sseState })._state;
 Object.defineProperty(sseState, "activeHandler", {
   get: () => _state.activeHandler,
-  set: (v) => (_state.activeHandler = v),
+  set: (v) => { _state.activeHandler = v; },
 });
 Object.defineProperty(sseState, "activeStatusHandler", {
   get: () => _state.activeStatusHandler,
-  set: (v) => (_state.activeStatusHandler = v),
+  set: (v) => { _state.activeStatusHandler = v; },
 });
 
 vi.mock("@/lib/sse", () => ({

@@ -49,18 +49,20 @@ async def auth_anon(payload: AnonRequest) -> TokenResponse:
     is_anon = bool(claims.get("firebase", {}).get("sign_in_provider") == "anonymous"
                    or claims.get("anonymous"))
 
-    ensure_user = getattr(firestore_service, "ensure_user", None)
-    if callable(ensure_user):
-        try:
-            await ensure_user(
-                uid=uid,
-                email=claims.get("email"),
-                is_anonymous=is_anon,
-                locale=payload.locale,
-                region=payload.region,
-            )
-        except Exception as e:  # noqa: BLE001
-            log.warning("auth.anon.ensure_user_failed", err=str(e))
+    try:
+        await firestore_service.ensure_user(
+            uid=uid,
+            email=claims.get("email"),
+            is_anonymous=is_anon,
+            locale=payload.locale,
+            region=payload.region,
+        )
+    except Exception as e:
+        log.error("auth.anon.ensure_user_failed", err=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={"code": "USER_STORE_UNAVAILABLE", "message": "could not save account"},
+        ) from e
 
     jwt_token, expires_in = await auth_service.mint_session_jwt(
         uid=uid,
@@ -95,12 +97,14 @@ async def auth_verify(payload: VerifyRequest) -> TokenResponse:
     uid = claims.get("uid") or claims["sub"]
     email = claims.get("email")
 
-    ensure_user = getattr(firestore_service, "ensure_user", None)
-    if callable(ensure_user):
-        try:
-            await ensure_user(uid=uid, email=email, is_anonymous=False)
-        except Exception as e:  # noqa: BLE001
-            log.warning("auth.verify.ensure_user_failed", err=str(e))
+    try:
+        await firestore_service.ensure_user(uid=uid, email=email, is_anonymous=False)
+    except Exception as e:
+        log.error("auth.verify.ensure_user_failed", err=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={"code": "USER_STORE_UNAVAILABLE", "message": "could not save account"},
+        ) from e
 
     jwt_token, expires_in = await auth_service.mint_session_jwt(
         uid=uid,

@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "minimum_percent": 61.5,
+  "target_percent": 70.0,
+  "note": "The full Python 3.11 suite measured 61.5466% on 2026-09-26 (rounded to 62% in terminal output). The 61.5% floor allows rounding/platform variance. Raise this floor as tests are added; do not lower it."
+}

@@ -1,0 +1,22 @@
+{
+  "findings": [
+    {
+      "rule": "typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml",
+      "path": "frontend/src/components/Sandbox/PurifiedHTML.tsx",
+      "source": "dangerouslySetInnerHTML={{ __html: safe }}",
+      "reason": "The safe value comes directly from purifyHTML, which applies DOMPurify immediately before rendering. The component does not accept bypassed HTML."
+    },
+    {
+      "rule": "yaml.kubernetes.security.allow-privilege-escalation-no-securitycontext.allow-privilege-escalation-no-securitycontext",
+      "path": "infrastructure/cloud-run-gateway.yaml",
+      "source": "- name: gateway",
+      "reason": "This is a Cloud Run Service, not a Kubernetes Pod. Cloud Run disables privilege escalation and does not support container securityContext: https://docs.cloud.google.com/run/docs/container-contract#container_security_restrictions"
+    },
+    {
+      "rule": "yaml.kubernetes.security.allow-privilege-escalation-no-securitycontext.allow-privilege-escalation-no-securitycontext",
+      "path": "infrastructure/cloud-run-worker.yaml",
+      "source": "- name: worker",
+      "reason": "This is a Cloud Run Service, not a Kubernetes Pod. Cloud Run disables privilege escalation and does not support container securityContext: https://docs.cloud.google.com/run/docs/container-contract#container_security_restrictions"
+    }
+  ]
+}

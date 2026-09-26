@@ -70,7 +70,7 @@ export function CohortPage(): JSX.Element {
   const navigate = useNavigate();
   const { uid, loading: authLoading } = useAuth();
   const { tier } = useTier();
-  const { error: errorToast, success } = useToast();
+  const { success } = useToast();
 
   const [cohort, setCohort] = useState<CohortDoc | null>(null);
   const [founders, setFounders] = useState<FounderRow[]>([]);
@@ -112,7 +112,7 @@ export function CohortPage(): JSX.Element {
         setLoading(false);
       },
       (err) => {
-        // eslint-disable-next-line no-console
+         
         console.warn("[cohort]", err);
         setLoading(false);
       },

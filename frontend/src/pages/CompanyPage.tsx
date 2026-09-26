@@ -104,7 +104,7 @@ export function CompanyPage(): JSX.Element {
         setLoading(false);
       },
       (err) => {
-        // eslint-disable-next-line no-console
+         
         console.warn("[company]", err);
         setLoading(false);
       },
@@ -160,7 +160,7 @@ export function CompanyPage(): JSX.Element {
       () => undefined,
     );
     return () => unsub();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [company?.latest_session_id]);
 
   const handleOrder = async (jobType: string) => {

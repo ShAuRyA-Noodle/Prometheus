@@ -68,7 +68,8 @@ def fill_template(
         raise
 
     env = Environment(
-        autoescape=False,
+        # Values may be user supplied and the rendered Markdown may become HTML.
+        autoescape=True,
         trim_blocks=True,
         lstrip_blocks=True,
         keep_trailing_newline=True,

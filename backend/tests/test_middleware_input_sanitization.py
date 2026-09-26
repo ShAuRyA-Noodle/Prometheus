@@ -18,7 +18,7 @@ async def test_strips_control_chars(client, in_memory_firestore) -> None:
                  "idempotency-key": "sn-" + secrets.token_urlsafe(12)},
     )
     # Cleaned body passes Pydantic validator that rejects control chars.
-    assert r.status_code == 202
+    assert r.status_code == 202, r.text
 
 
 async def test_oversize_body_413(client) -> None:

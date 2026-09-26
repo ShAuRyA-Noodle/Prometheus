@@ -1,8 +1,14 @@
 """Unit tests for PitchDeckAgent (Wave 3, Pro) — pre-summarize + after_model workspace."""
+
 from __future__ import annotations
 
-import pytest
+import importlib
+from types import SimpleNamespace
 
+import pytest
+from google.genai import types
+
+from services import gemini_client
 from tests.test_agents._helpers import (
     assert_safety_blocked,
     assert_timeout,
@@ -21,8 +27,9 @@ def state():
 
 @pytest.fixture
 def stub_summarize_and_workspace(monkeypatch):
-    from agents import _summarize
     from services import google_workspace
+
+    pitch_deck_module = importlib.import_module("agents.pitch_deck_agent")
 
     calls = {"summarize_all": 0, "workspace": 0}
 
@@ -53,7 +60,7 @@ def stub_summarize_and_workspace(monkeypatch):
             "slide_image_urls": {},
         }
 
-    monkeypatch.setattr(_summarize, "summarize_all", _summarize_all, raising=False)
+    monkeypatch.setattr(pitch_deck_module, "summarize_all", _summarize_all)
     monkeypatch.setattr(
         google_workspace,
         "create_presentation_from_template",
@@ -109,3 +116,42 @@ async def test_output_key() -> None:
     from agents.pitch_deck_agent import pitch_deck_agent
 
     assert pitch_deck_agent.output_key == "pitch_deck_result"
+
+
+async def test_summary_text_call_uses_plain_text_config(monkeypatch) -> None:
+    seen = {}
+
+    def _generate_content(*, model, contents, config):
+        seen.update(model=model, contents=contents, config=config)
+        return SimpleNamespace(text="  concise summary  ", prompt_feedback=None, candidates=[])
+
+    client = SimpleNamespace(models=SimpleNamespace(generate_content=_generate_content))
+    monkeypatch.setattr(gemini_client, "_get_client", lambda: client)
+    monkeypatch.setattr(gemini_client, "_genai_types", types)
+
+    result = await gemini_client.call_gemini_text(
+        model="gemini-flash", prompt="Summarize this", temperature=0.1, max_output_tokens=400
+    )
+
+    assert result == "concise summary"
+    assert seen["model"] == "gemini-flash"
+    assert seen["contents"] == "Summarize this"
+    assert seen["config"].temperature == 0.1
+    assert seen["config"].max_output_tokens == 400
+    assert seen["config"].response_mime_type is None
+
+
+async def test_summary_text_call_rejects_safety_block(monkeypatch) -> None:
+    def _generate_content(**_kwargs):
+        return SimpleNamespace(
+            text="",
+            prompt_feedback=None,
+            candidates=[SimpleNamespace(finish_reason="SAFETY")],
+        )
+
+    client = SimpleNamespace(models=SimpleNamespace(generate_content=_generate_content))
+    monkeypatch.setattr(gemini_client, "_get_client", lambda: client)
+    monkeypatch.setattr(gemini_client, "_genai_types", types)
+
+    with pytest.raises(gemini_client.GeminiError, match="blocked"):
+        await gemini_client.call_gemini_text(model="gemini-flash", prompt="Summarize this")

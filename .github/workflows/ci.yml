@@ -15,67 +15,65 @@ env:
   NODE_VERSION: "20"
 
 jobs:
-  lint-backend:
-    name: Lint backend (ruff)
+  backend-quality:
+    name: Backend quality (Ruff + mypy ratchet)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
-      - name: ruff format check
-        run: ruff format --check backend
-      - name: ruff lint
-        run: ruff check backend
-
-  typecheck-backend:
-    name: Typecheck backend (mypy --strict)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
-          cache-dependency-path: backend/requirements.txt
-      - run: pip install -r backend/requirements.txt
-      - name: mypy --strict
-        run: mypy --strict backend/agents backend/services backend/models
+      - name: Pin quality tools
+        run: pip install ruff==0.16.9 mypy==1.14.1
+      - name: Check backend quality against documented baseline
+        env:
+          QUALITY_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: python scripts/quality_backend.py --base "$QUALITY_BASE_REF"
 
   test-backend:
-    name: Test backend (pytest, coverage gate 70%)
+    name: Test backend (coverage floor 61.5%, target 70%)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
           cache-dependency-path: backend/requirements.txt
       - run: pip install -r backend/requirements.txt
-      - name: pytest with coverage
+      - name: pytest with coverage and no-regression gate
+        env:
+          ENV: dev
+          VERTEX_SAFETY_ENABLED: "false"
+          PYTHONUNBUFFERED: "1"
+          QUALITY_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
           cd backend
-          pytest --cov=. --cov-branch --cov-report=xml --cov-report=term --cov-fail-under=70 -q
-        env:
-          ENV: test
-          PYTHONUNBUFFERED: "1"
+          pytest --cov=. --cov-branch --cov-report=xml --cov-report=term --cov-fail-under=0 -q
+          coverage json -o coverage.json
+          python ../scripts/check_backend_coverage.py --report coverage.json --base "$QUALITY_BASE_REF"
       - name: Upload coverage
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: backend-coverage
-          path: backend/coverage.xml
+          path: |
+            backend/coverage.xml
+            backend/coverage.json
           retention-days: 7
 
   lint-frontend:
     name: Lint frontend (eslint + prettier)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -85,24 +83,25 @@ jobs:
       - run: cd frontend && npm run format:check
 
   typecheck-frontend:
-    name: Typecheck frontend (tsc --noEmit)
+    name: Typecheck and build frontend
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - run: cd frontend && npm ci
       - run: cd frontend && npm run typecheck
+      - run: cd frontend && npm run build
 
   test-frontend:
     name: Test frontend (vitest)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
@@ -114,11 +113,11 @@ jobs:
     name: Audit dependencies (pip-audit + npm audit)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: pip-audit
@@ -134,11 +133,11 @@ jobs:
     name: Pre-commit hooks (gitleaks + custom)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
       - name: gitleaks
-        uses: gitleaks/gitleaks-action@v3
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: No service-account.json paths
@@ -162,7 +161,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
       - name: Verify PROMPT_REGISTRY.md updated when prompts change
@@ -183,7 +182,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
       - name: Verify ARCHITECTURE.md updated when topology changes

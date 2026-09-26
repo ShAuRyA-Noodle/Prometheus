@@ -23,7 +23,7 @@ export function useStreamingAgent(
   agent: AgentName,
 ): StreamingAgentState {
   const { session, reasoning } = useSession(sessionId);
-  const chunks = reasoning[agent] ?? [];
+  const chunks = useMemo(() => reasoning[agent] ?? [], [reasoning, agent]);
   const text = useMemo(() => chunks.map((c) => c.text).join(""), [chunks]);
   const record = session?.agents?.[agent];
   const isStreaming = record?.status === "running";

@@ -31,6 +31,7 @@ os.environ.setdefault("ENV", "dev")
 os.environ.setdefault("LOG_LEVEL", "WARNING")
 os.environ.setdefault("CORS_ORIGINS", "http://localhost:5173")
 os.environ.setdefault("CLOUD_TASKS_WORKER_URL", "")  # forces dev inline dispatch
+os.environ.setdefault("VERTEX_SAFETY_ENABLED", "false")  # tests must not call live Vertex
 os.environ.setdefault("STRIPE_WEBHOOK_SECRET", "whsec_test")
 
 
@@ -190,18 +191,16 @@ class _InMemoryFirestore:
     async def list_active_companies(self) -> list:
         return []
 
-    async def create_marketplace_job(self, **kw: Any) -> Any:
-        from models.billing_models import MarketplaceJob
-        job = MarketplaceJob(
-            job_type=kw["job_type"],
-            company_id=kw["company_id"],
-            price_usd=kw["price_usd"],
-            provider="acme_legal",
-            status="awaiting_payment",
-            created_at=datetime.now(tz=timezone.utc).isoformat(),
-        )
-        job.job_id = f"job_test_{kw['company_id']}"  # type: ignore[attr-defined]
-        return job
+    async def create_marketplace_job(
+        self,
+        *,
+        uid: str,
+        company_id: str,
+        job_type: str,
+        session_id: str | None,
+        status: str,
+    ) -> str:
+        return f"job_test_{company_id}"
 
 
 @pytest.fixture

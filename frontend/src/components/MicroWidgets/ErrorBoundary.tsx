@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   override componentDidCatch(error: Error, info: React.ErrorInfo): void {
-    // eslint-disable-next-line no-console
+     
     console.error("[ErrorBoundary]", error, info);
   }
 

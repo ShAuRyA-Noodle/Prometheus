@@ -13,6 +13,7 @@ Anonymous routes:
 
 Populates `request.state.user` with a typed `AuthedUser` dataclass.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -36,6 +37,10 @@ class AuthedUser:
     tier: str
     role: str
     raw_claims: dict[str, Any]
+
+
+class AccountStoreUnavailableError(Exception):
+    """Verified credentials could not be paired with a durable user record."""
 
 
 _ANON_PATHS_EXACT = {
@@ -97,6 +102,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
 
         try:
             user = await _resolve_user(token)
+        except AccountStoreUnavailableError:
+            log.error("auth.user_store_unavailable", request_id=rid)
+            return _err(503, "USER_STORE_UNAVAILABLE", "could not save account", rid)
         except Exception as e:  # noqa: BLE001
             log.warning("auth.verify_failed", request_id=rid, err=str(e))
             return _err(401, "INVALID_AUTH", "token verification failed", rid)
@@ -109,15 +117,24 @@ async def _resolve_user(token: str) -> AuthedUser:
     """Try session JWT first (cheap), fall back to Firebase ID token."""
     from services import auth_service, firestore_service
 
+    firebase_verified = False
     try:
         claims = await auth_service.verify_session_jwt(token)
     except Exception:  # noqa: BLE001
         claims = await auth_service.verify_id_token(token)
+        firebase_verified = True
 
     uid: str = claims["uid"] if "uid" in claims else claims["sub"]
     email = claims.get("email")
-    is_anon = bool(claims.get("firebase", {}).get("sign_in_provider") == "anonymous"
-                   or claims.get("anonymous"))
+    is_anon = bool(
+        claims.get("firebase", {}).get("sign_in_provider") == "anonymous" or claims.get("anonymous")
+    )
+
+    if firebase_verified:
+        try:
+            await firestore_service.ensure_user(uid=uid, email=email, is_anonymous=is_anon)
+        except Exception as exc:
+            raise AccountStoreUnavailableError from exc
 
     user_record = None
     try:

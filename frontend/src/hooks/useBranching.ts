@@ -67,7 +67,7 @@ export function useBranching(sessionId: string | null): UseBranching {
         setLoading(false);
       },
       (err) => {
-        // eslint-disable-next-line no-console
+         
         console.warn("[branching] listener error", err);
         setLoading(false);
       },

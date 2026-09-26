@@ -82,7 +82,7 @@ export function parseBody(raw: string): ParsedBody {
       bullets.push(bm[1] ?? "");
       continue;
     }
-    const nm = /^([A-Z][A-Za-z0-9 \-]{2,}):\s+(.+)$/.exec(line);
+    const nm = /^([A-Z][A-Za-z0-9 -]{2,}):\s+(.+)$/.exec(line);
     if (nm) {
       numbered.push({ label: nm[1] ?? "", value: nm[2] ?? "" });
       continue;
