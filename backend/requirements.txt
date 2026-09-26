@@ -87,7 +87,7 @@ cachetools>=5.5.0
 python-dotenv>=1.2.2
 typer>=0.15.1
 rich>=13.9.4
-orjson>=3.11.6
+orjson>=3.12.0
 PyYAML>=6.0.3
 
 # === Dev ===
