@@ -115,6 +115,10 @@ class InputSanitizationMiddleware(BaseHTTPMiddleware):
         cleaned = _walk(parsed)
         new_body = orjson.dumps(cleaned)
 
+        # BaseHTTPMiddleware's cached request forwards `_body` to the inner
+        # app; changing only `_receive` leaves the original body cached.
+        request._body = new_body  # type: ignore[attr-defined]  # noqa: SLF001
+
         # Re-inject cleaned body into the ASGI receive stream.
         async def receive() -> dict[str, Any]:
             return {"type": "http.request", "body": new_body, "more_body": False}

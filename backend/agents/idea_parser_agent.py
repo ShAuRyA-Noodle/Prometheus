@@ -1,12 +1,14 @@
 """Idea Parser Agent — Pre-Wave, Flash. Extracts ParsedIdea from raw text."""
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any, ClassVar
 
 from config import settings
 from models.agent_schemas import ParsedIdea
 from models.session_models import AgentName, Wave
+from services.sanitization import wrap_user_input_safe
 
 from .base import PrometheusAgent
 
@@ -28,8 +30,10 @@ class IdeaParserAgent(PrometheusAgent[ParsedIdea]):
         return "parsed_idea"
 
     def render_prompt(self, state: dict[str, Any]) -> str:
-        # idea_text is the only required substitution at this stage.
-        return self.prompt_template.format(idea_text=state.get("idea_text", ""))
+        # JSON escaping prevents founder text from closing the prompt's quoted
+        # input field or introducing new prompt sections via raw newlines.
+        idea_text = json.dumps(str(state.get("idea_text") or ""), ensure_ascii=True)
+        return self.prompt_template.format(idea_text=wrap_user_input_safe(idea_text))
 
 
 idea_parser_agent = IdeaParserAgent()

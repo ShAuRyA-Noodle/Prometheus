@@ -1,6 +1,7 @@
 """Hard CLAUDE.md constraint: drive scope is drive.file ONLY — never the broad 'drive' scope."""
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 
@@ -17,16 +18,16 @@ def test_no_full_drive_scope_in_backend() -> None:
     forbidden = re.compile(r"https://www\.googleapis\.com/auth/drive(?!\.)")  # not followed by .file/.metadata/etc.
     offenders: list[tuple[str, int, str]] = []
 
-    for path in _BACKEND.rglob("*.py"):
-        if "tests" in path.parts:
-            continue
-        try:
+    for root, dirs, files in os.walk(_BACKEND):
+        dirs[:] = [d for d in dirs if d not in {"tests", ".venv", "venv", "__pycache__"}]
+        for name in files:
+            if not name.endswith(".py"):
+                continue
+            path = Path(root) / name
             text = path.read_text(encoding="utf-8")
-        except Exception:
-            continue
-        for i, line in enumerate(text.splitlines(), 1):
-            if forbidden.search(line):
-                offenders.append((str(path), i, line.strip()))
+            for i, line in enumerate(text.splitlines(), 1):
+                if forbidden.search(line):
+                    offenders.append((str(path), i, line.strip()))
 
     assert not offenders, f"forbidden 'drive' scope found: {offenders}"
 

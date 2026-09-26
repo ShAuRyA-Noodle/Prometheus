@@ -26,7 +26,7 @@ async def test_export_without_bearer_401(client, in_memory_firestore, fake_auth_
     r = await client.post(
         f"/api/session/{s.session_id}/export",
         json={"session_id": s.session_id, "targets": ["json"]},
-        headers={"content-type": "application/json",
+        headers={"authorization": "", "content-type": "application/json",
                  "idempotency-key": "csrf-" + secrets.token_urlsafe(12)},
     )
     assert r.status_code == 401
@@ -48,7 +48,7 @@ async def test_deploy_without_bearer_401(client, in_memory_firestore, fake_auth_
     r = await client.post(
         f"/api/session/{s.session_id}/deploy",
         json={"session_id": s.session_id, "domain": None, "purchase_domain": False},
-        headers={"content-type": "application/json",
+        headers={"authorization": "", "content-type": "application/json",
                  "idempotency-key": "csrf2-" + secrets.token_urlsafe(12)},
     )
     assert r.status_code == 401

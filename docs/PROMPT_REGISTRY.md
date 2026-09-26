@@ -27,7 +27,7 @@ Versioning follows semver:
 
 | Agent | Version | Last edit | Author | Avg coherence (golden) | Cost/run | Notes |
 |---|---|---|---|---|---|---|
-| `idea_parser` | 1.0.0 | M0 W1 | Shaurya | n/a (sub-pipeline) | $0.0010 | locked at M0 |
+| `idea_parser` | 1.1.0 | 2026-09-26 | Codex | n/a (sub-pipeline) | $0.0010 | founder text JSON-encoded in untrusted envelope |
 | `articulation` | 1.0.0 | M0 W1 | Shaurya | n/a | $0.0012 | clarifying_questions cap=3 |
 | `market_research` | 1.2.1 | M1 W3 | Shaurya | 0.71 | $0.063 | added `derivation` requirement |
 | `competitive_analysis` | 1.1.0 | M1 W4 | Shaurya | 0.69 | $0.072 | grounded-search prompt-injection clause |
@@ -49,6 +49,8 @@ Versioning follows semver:
 ---
 
 ## 2. Golden regression scores by version
+
+Idea Parser 1.1.0: no prior per-agent coherence score is recorded. The local prompt-injection corpus and golden suite are the regression checks for this boundary change.
 
 The golden regression suite is `backend/tests/golden/ideas.json` (50 ideas spanning 12 industries, 4 geographies, 6 stages-of-formation). Each row is the avg `coherence_score` across all 50 ideas at that prompt version.
 
@@ -117,6 +119,7 @@ The golden regression suite is `backend/tests/golden/ideas.json` (50 ideas spann
 ## 3. Change log
 
 ```
+2026-09-26  idea_parser@1.1.0   minor  Treat JSON-encoded founder input as untrusted data; strip forged envelope markers. (Codex)
 2026-04-08  pitch_deck@1.5.1   patch  fixed double-quote in HARD RULES; no behavior change. (Shaurya)
 2026-04-05  pitch_deck@1.5.0   minor  speaker_notes must cite financial numbers; +0.03 coherence. (Shaurya)
 2026-04-02  executive_summary@1.3.0   minor  pre-summarization cap 500/agent; coherence_score self-eval added. (Shaurya)

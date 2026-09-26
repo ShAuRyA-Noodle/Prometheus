@@ -32,3 +32,5 @@ async def test_large_inside_envelope_caught_by_pydantic(client) -> None:
                  "idempotency-key": "ov-" + secrets.token_urlsafe(12)},
     )
     assert r.status_code == 422
+    assert "x" * 100 not in r.text
+    assert r.json()["code"] == "VALIDATION_ERROR"

@@ -63,7 +63,7 @@ async def test_sse_unauthorized_when_no_token(client, in_memory_firestore) -> No
     s = _make_session("uid_other")
     in_memory_firestore.sessions[s.session_id] = s
 
-    r = await client.get(f"/sse/sessions/{s.session_id}", headers={})
+    r = await client.get(f"/sse/sessions/{s.session_id}", headers={"authorization": ""})
     assert r.status_code == 401
 
 

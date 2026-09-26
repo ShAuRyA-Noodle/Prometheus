@@ -26,7 +26,7 @@ async def test_no_bearer_export_401(client, in_memory_firestore, fake_auth_user)
     r = await client.post(
         f"/api/session/{s.session_id}/export",
         json={"session_id": s.session_id, "targets": ["json"]},
-        headers={"content-type": "application/json",
+        headers={"authorization": "", "content-type": "application/json",
                  "idempotency-key": "ab-" + secrets.token_urlsafe(12)},
     )
     assert r.status_code == 401

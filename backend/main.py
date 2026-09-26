@@ -264,7 +264,12 @@ def _install_error_handlers(app: FastAPI) -> None:
                 "code": "VALIDATION_ERROR",
                 "message": "request validation failed",
                 "request_id": getattr(request.state, "request_id", None),
-                "errors": exc.errors(),
+                # Pydantic errors can contain the submitted value and exception
+                # objects in `input`/`ctx`. Do not echo or log idea text here.
+                "errors": [
+                    {"type": error["type"], "loc": error["loc"]}
+                    for error in exc.errors()
+                ],
             },
         )
 

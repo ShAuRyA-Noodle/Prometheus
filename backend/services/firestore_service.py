@@ -108,6 +108,35 @@ async def upsert_user(user: User) -> None:
     log.info("firestore.user.upsert", uid=user.uid)
 
 
+async def ensure_user(
+    *,
+    uid: str,
+    email: str | None = None,
+    is_anonymous: bool = False,  # noqa: ARG001 - part of the auth-route contract
+    locale: str = "en-US",
+    region: str = "US",
+) -> None:
+    """Create an account once, preserving tier and billing data on later logins."""
+    now = datetime.now(timezone.utc)
+    existing = await get_user(uid)
+    if existing is None:
+        await upsert_user(
+            User(
+                uid=uid,
+                email=email,
+                created_at=now,
+                last_active_at=now,
+                locale=locale,
+                region=region,
+            )
+        )
+        return
+    existing.last_active_at = now
+    if email and not existing.email:
+        existing.email = email
+    await upsert_user(existing)
+
+
 # ─── Sessions ────────────────────────────────────────────────────────────────
 
 
