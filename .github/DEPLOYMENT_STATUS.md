@@ -27,5 +27,10 @@ checks in a protected staging environment:
    exact scanned image digest, verify production health and application flow,
    and retain a tested rollback path.
 
-The deleted workflow remains in Git history as a reference, not an executable
-deployment plan. Do not re-enable it without validating every step above.
+The deleted CD workflow remains in Git history as a reference, not an
+executable deployment plan. The weekly quality benchmark was also retired: it
+claimed to read last week's production samples but had no configured sample
+source or cloud authentication. The staging load test remains available for
+manual runs after `STAGING_HOST` is configured; its automatic schedule is
+disabled while staging is absent. Do not restore scheduled deployment checks
+until a real environment and data source are verified.
