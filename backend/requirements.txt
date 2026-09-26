@@ -11,7 +11,7 @@ python-multipart>=0.0.27
 # === Google AI / ADK ===
 google-adk>=1.30.0
 google-genai>=1.30.0
-google-cloud-aiplatform>=1.133.0
+google-cloud-aiplatform>=1.165.1
 
 # === Google Cloud ===
 google-cloud-firestore>=2.20.0
