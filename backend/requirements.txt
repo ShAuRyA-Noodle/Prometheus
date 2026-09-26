@@ -3,7 +3,7 @@
 
 # === API server ===
 fastapi>=0.138.0
-uvicorn[standard]>=0.32.1
+uvicorn[standard]>=0.53.0
 pydantic[email]>=2.10.3
 pydantic-settings>=2.6.1
 python-multipart>=0.0.27
@@ -18,7 +18,7 @@ google-cloud-firestore>=2.20.0
 google-cloud-tasks>=2.18.0
 google-cloud-secret-manager>=2.22.0
 google-cloud-storage>=2.19.0
-google-cloud-logging>=3.12.0
+google-cloud-logging>=3.16.0
 google-cloud-trace>=1.16.0
 google-cloud-monitoring>=2.27.1
 
@@ -44,7 +44,7 @@ PyJWT>=2.12.0
 stripe>=11.4.0
 
 # === External integrations ===
-deepgram-sdk>=3.10.0
+deepgram-sdk>=3.11.0
 
 # === Sanitization / validation ===
 bleach>=6.2.0
@@ -80,14 +80,14 @@ opentelemetry-exporter-gcp-trace>=1.9.0
 
 # === Rate limiting / caching ===
 limits>=3.13.0
-redis>=5.2.1
+redis>=5.3.1
 cachetools>=5.5.0
 
 # === Misc ===
 python-dotenv>=1.2.2
 typer>=0.15.1
 rich>=13.9.4
-orjson>=3.11.6
+orjson>=3.12.0
 PyYAML>=6.0.3
 
 # === Dev ===
