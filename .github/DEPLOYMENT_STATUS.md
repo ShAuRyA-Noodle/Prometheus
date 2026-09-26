@@ -12,6 +12,13 @@ did not resolve during the retirement check; the apex domain did not serve this
 API. A successful source build therefore must not be presented as proof of a
 working deployment.
 
+Paid flows are not deployment-ready. Marketplace checkout has no billing
+service implementation or matching Stripe webhook, and the frontend order path
+does not match the backend route. Subscription checkout also has a route and
+service contract mismatch. Mocked route tests do not prove either paid flow
+works. Keep these flows disabled until provider configuration, contract tests,
+and an end-to-end staging purchase/refund check are in place.
+
 Before restoring CD, establish the actual hosting plan and complete these
 checks in a protected staging environment:
 
