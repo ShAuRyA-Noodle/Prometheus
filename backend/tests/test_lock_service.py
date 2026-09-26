@@ -79,7 +79,7 @@ def fake_lock_db(monkeypatch):
 
     import sys
 
-    sys.modules["google.cloud.firestore"] = fake_gcfs
+    monkeypatch.setitem(sys.modules, "google.cloud.firestore", fake_gcfs)
     return db
 
 

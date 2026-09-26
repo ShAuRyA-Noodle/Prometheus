@@ -49,7 +49,7 @@ async def test_quota_warning_header(client, monkeypatch) -> None:
 
     r = await client.post(
         "/api/generate",
-        json={"idea_text": "An idea."},
+        json={"idea_text": "An idea about gardens."},
         headers={"authorization": "Bearer test", "content-type": "application/json",
                  "idempotency-key": "cg-" + secrets.token_urlsafe(12)},
     )

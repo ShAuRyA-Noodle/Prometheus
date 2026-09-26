@@ -190,18 +190,16 @@ class _InMemoryFirestore:
     async def list_active_companies(self) -> list:
         return []
 
-    async def create_marketplace_job(self, **kw: Any) -> Any:
-        from models.billing_models import MarketplaceJob
-        job = MarketplaceJob(
-            job_type=kw["job_type"],
-            company_id=kw["company_id"],
-            price_usd=kw["price_usd"],
-            provider="acme_legal",
-            status="awaiting_payment",
-            created_at=datetime.now(tz=timezone.utc).isoformat(),
-        )
-        job.job_id = f"job_test_{kw['company_id']}"  # type: ignore[attr-defined]
-        return job
+    async def create_marketplace_job(
+        self,
+        *,
+        uid: str,
+        company_id: str,
+        job_type: str,
+        session_id: str | None,
+        status: str,
+    ) -> str:
+        return f"job_test_{company_id}"
 
 
 @pytest.fixture
