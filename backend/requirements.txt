@@ -79,7 +79,7 @@ opentelemetry-instrumentation-httpx>=0.50b0
 opentelemetry-exporter-gcp-trace>=1.9.0
 
 # === Rate limiting / caching ===
-limits>=3.13.0
+limits>=3.14.1
 redis>=5.3.1
 cachetools>=5.5.0
 
