@@ -58,7 +58,7 @@ json-repair>=0.35.0
 numpy>=2.4.6
 pandas>=2.2.3
 numpy-financial>=1.0.0
-sympy>=1.13.3
+sympy>=1.14.0
 
 # === Image processing ===
 Pillow>=12.2.0
