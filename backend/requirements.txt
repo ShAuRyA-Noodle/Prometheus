@@ -76,7 +76,7 @@ opentelemetry-api>=1.29.0
 opentelemetry-sdk>=1.29.0
 opentelemetry-instrumentation-fastapi>=0.50b0
 opentelemetry-instrumentation-httpx>=0.50b0
-opentelemetry-exporter-gcp-trace>=1.9.0
+opentelemetry-exporter-gcp-trace>=1.15.0
 
 # === Rate limiting / caching ===
 limits>=3.13.0
